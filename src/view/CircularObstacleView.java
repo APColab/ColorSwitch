@@ -13,7 +13,6 @@ import model.CircularObstacle;
 public class CircularObstacleView extends Pane {
     private final CircularObstacle circle;
     private final Arc[] arcs;
-    private final float startAngle;
     private final RotateTransition rt;
 
     public CircularObstacle getCircle() {
@@ -21,15 +20,14 @@ public class CircularObstacleView extends Pane {
     }
 
     public CircularObstacleView(){
-        this(new CircularObstacle().getPos_X(),new CircularObstacle().getPos_Y(),new CircularObstacle().getRadius(),new CircularObstacle().getWidth());
+        this(new CircularObstacle());
     }
 
-    public CircularObstacleView(float pos_x, float pos_y, float r, float w){
-        this.startAngle = 0.0f;
-        this.circle = new CircularObstacle(pos_x,pos_y,r,w);
+    public CircularObstacleView(CircularObstacle c){
+        this.circle = c;
         arcs = new Arc[4];
         for(int i =0;i<4;i++){
-            arcs[i] = new Arc(circle.getRadius(),circle.getRadius(),circle.getRadius(),circle.getRadius(),startAngle+i*90,90);
+            arcs[i] = new Arc(circle.getRadius(),circle.getRadius(),circle.getRadius(),circle.getRadius(),i*90,90);
             arcs[i].setType(ArcType.OPEN);
             arcs[i].setStrokeWidth(circle.getWidth());
             arcs[i].setFill(Color.TRANSPARENT);
@@ -52,32 +50,7 @@ public class CircularObstacleView extends Pane {
         rt.play();
     }
 
-
-    public void updatePosition(){
-        for(int i=0;i<4;i++){
-            arcs[i].setCenterX(this.circle.getRadius());
-            arcs[i].setCenterY(this.circle.getRadius());
-            arcs[i].setRadiusX(this.circle.getRadius());
-            arcs[i].setRadiusY(this.circle.getRadius());
-        }
-        this.setPrefWidth(2*this.circle.getRadius());
-        this.setPrefHeight(2*this.circle.getRadius());
-        this.setLayoutX(this.circle.getPos_X());
-        this.setLayoutY(this.circle.getPos_Y());
+    public Arc[] getArcs() {
+        return arcs;
     }
-
-    public void setPos_X(float x){
-        this.circle.setPos_X(x);
-        this.updatePosition();
-    }
-    public void setPos_Y(float y){
-        this.circle.setPos_Y(y);
-        this.updatePosition();
-    }
-
-    public void setRadius(float r){
-        this.circle.setRadius(r);
-        this.updatePosition();
-    }
-
 }
