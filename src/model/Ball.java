@@ -1,18 +1,26 @@
 package model;
 
+import javafx.animation.*;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 import view.BallView;
 
 
 public class Ball extends Circle implements Collidable {
     private FloatProperty pos_X;
     private FloatProperty pos_Y;
-    private final float RADIUS = 50 ;
+    private final float RADIUS = 20 ;
     private BallView ballView;
     private Color ballColor;
+    private AnimationTimer gravity;
+    private float speed;
 
     public Ball(){
         this(100,200);
@@ -24,11 +32,31 @@ public class Ball extends Circle implements Collidable {
         ballView = new BallView(this);
         ballColor = Color.RED;
         setBindings();
+        gravity = new Gravity();
+        gravity.start();
     }
 
     private void setBindings() {
-        pos_X.bindBidirectional(ballView.centerXProperty());
-        pos_Y.bindBidirectional(ballView.centerYProperty());
+        pos_X.bindBidirectional(ballView.layoutXProperty());
+        pos_Y.bindBidirectional(ballView.layoutYProperty());
+    }
+
+    class Gravity extends AnimationTimer{
+        long startTime = -1;
+        @Override
+        public void handle(long l) {
+            if(startTime==-1){
+                startTime = l;
+            }
+            if(getPos_Y()<770){
+                speed = speed+0.4f;
+                setPos_Y(getPos_Y()+speed);
+            }
+        }
+    }
+
+    public void jump(){
+        speed = -10f;
     }
 
     public float getPos_X() {
