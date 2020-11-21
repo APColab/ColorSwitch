@@ -11,7 +11,7 @@ public class CircularObstacle extends Obstacle{
     }
 
     public CircularObstacle() {
-        this.setPos_X(100);
+        this.setPos_X(200);
         this.setPos_Y(100);
         this.radius = 60.0f;
         this.width = 10.0f;
