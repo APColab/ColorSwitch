@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.application.Application;
 import javafx.util.Duration;
+import model.Ball;
 import model.CircularObstacle;
 import view.CircularObstacleView;
 
@@ -24,7 +25,11 @@ public class Test extends Application {
         CircularObstacle c = new CircularObstacle();
         c.setPos_X(400);
         c.setRadius(100);
+        Ball b = new Ball();
+        b.setPos_X(90);
+        b.setPos_Y(500);
         testPane.getChildren().add(c.getCircularObstacleView());
+        testPane.getChildren().add(b.getBallView());
         testStage.setScene(testScene);
         testStage.show();
     }
