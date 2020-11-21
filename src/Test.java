@@ -1,13 +1,9 @@
-import javafx.animation.Animation;
-import javafx.animation.Interpolator;
-import javafx.animation.RotateTransition;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.application.Application;
-import javafx.util.Duration;
+import model.Ball;
+import model.CircularObstacle;
 import view.CircularObstacleView;
 
 public class Test extends Application {
@@ -21,6 +17,7 @@ public class Test extends Application {
         AnchorPane testPane = new AnchorPane();
         Scene testScene = new Scene(testPane,600,800);
         CircularObstacleView c = new CircularObstacleView();
+        Ball b = new Ball(100,100);
         testPane.getChildren().add(c);
         testStage.setScene(testScene);
         testStage.show();
