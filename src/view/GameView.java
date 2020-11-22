@@ -34,16 +34,32 @@ public class GameView {
     private void needToDeleteThisAndDoThisTheProperWay() {
         for(int i=0;i<2;i++){
             for(int j=0;j<2;j++){
-                CircularObstacle c = new CircularObstacle();
-                c.setPos_X(WIDTH/2-c.getRadius());
-                c.setPos_Y(j*4*c.getRadius());
-                obstaclePane[i].getChildren().add(c.getCircularObstacleView());
-                Star s = new Star(c);
-                obstaclePane[i].getChildren().add(s.getStarView());
-                ColorSwitch cs = new ColorSwitch(c);
-                obstaclePane[i].getChildren().add(cs.getColorSwitchView());
+                if(j==1){
+                    CircularObstacle c = new CircularObstacle();
+                    c.setPos_X(WIDTH/2-c.getRadius());
+                    c.setPos_Y(j*4*c.getRadius());
+                    obstaclePane[i].getChildren().add(c.getCircularObstacleView());
+                    Star s = new Star(c);
+                    obstaclePane[i].getChildren().add(s.getStarView());
+                    ColorSwitch cs = new ColorSwitch(c);
+                    obstaclePane[i].getChildren().add(cs.getColorSwitchView());
+                }
+                else {
+                    RectangularObstacle c = new RectangularObstacle(0,0);
+                    c.setPos_X(WIDTH / 2);
+                    c.setPos_Y(j * 4 * c.getLength());
+                    c.getRectangularObstacleView().setLayoutX(WIDTH/2 -100);
+                    obstaclePane[i].getChildren().add(c.getRectangularObstacleView());
+                    Star s = new Star(c);
+                    obstaclePane[i].getChildren().add(s.getStarView());
+                    ColorSwitch cs = new ColorSwitch(c);
+                    obstaclePane[i].getChildren().add(cs.getColorSwitchView());
+                }
+
             }
         }
+//        RectangularObstacle rc = new RectangularObstacle(400,200);
+//        obstaclePane[0].getChildren().add(rc.getRectangularObstacleView());
     }
 
 
