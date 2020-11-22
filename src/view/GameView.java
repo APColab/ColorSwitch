@@ -18,6 +18,7 @@ public class GameView {
     private Stage gameStage;
 
     private AnchorPane[] obstaclePane;
+    private ScoreView scoreView;
 
     private final float HEIGHT = 800;
     private final float WIDTH = 600;
@@ -25,6 +26,7 @@ public class GameView {
     public GameView(Game game){
         this.game = game;
         initializeStage();
+        gameStage.setResizable(false);
         needToDeleteThisAndDoThisTheProperWay();
     }
 
@@ -64,6 +66,8 @@ public class GameView {
         }
         obstaclePane[0].setLayoutY(-0.5*HEIGHT);
         obstaclePane[1].setLayoutY((obstaclePane[0].getLayoutY()-HEIGHT));
+        scoreView = new ScoreView();
+        gamePane.getChildren().add(scoreView);
 //        obstaclePane[1].setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(10))));
 //        obstaclePane[0].setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(10))));
         gamePane.getChildren().add(game.getBall().getBallView());
