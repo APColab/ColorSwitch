@@ -20,7 +20,9 @@ public class Ball extends Circle implements Collidable {
     private BallView ballView;
     private Color ballColor;
     private AnimationTimer gravity;
-    private float speed;
+    private FloatProperty speed;
+    private FloatProperty maxHeight;
+
 
     public Ball(){
         this(100,200);
@@ -31,9 +33,10 @@ public class Ball extends Circle implements Collidable {
         this.pos_Y = new SimpleFloatProperty(pos_Y);
         ballView = new BallView(this);
         ballColor = Color.RED;
+        maxHeight = new SimpleFloatProperty(400);
+        speed = new SimpleFloatProperty(0);
         setBindings();
         gravity = new Gravity();
-        gravity.start();
     }
 
     private void setBindings() {
@@ -48,15 +51,24 @@ public class Ball extends Circle implements Collidable {
             if(startTime==-1){
                 startTime = l;
             }
-            if(getPos_Y()<770){
-                speed = speed+0.4f;
-                setPos_Y(getPos_Y()+speed);
+            speed.setValue(speed.getValue()+0.4f);
+            if(getPos_Y()<=maxHeight.getValue()){
+                if(speed.getValue()<0){
+
+                }
+                else{
+                    setPos_Y(getPos_Y() + speed.getValue());
+                }
             }
+            else{
+                setPos_Y(getPos_Y()+speed.getValue());
+            }
+
         }
     }
 
     public void jump(){
-        speed = -10f;
+        speed.setValue(-10f);
     }
 
     public float getPos_X() {
@@ -75,6 +87,14 @@ public class Ball extends Circle implements Collidable {
         this.pos_Y.setValue(pos_Y);
     }
 
+    public FloatProperty pos_XProperty() {
+        return pos_X;
+    }
+
+    public FloatProperty pos_YProperty() {
+        return pos_Y;
+    }
+
     public float getRADIUS() {
         return RADIUS;
     }
@@ -85,6 +105,26 @@ public class Ball extends Circle implements Collidable {
 
     public Color getBallColor() {
         return ballColor;
+    }
+
+    public AnimationTimer getGravity() {
+        return gravity;
+    }
+
+    public float getSpeed() {
+        return speed.get();
+    }
+
+    public FloatProperty speedProperty() {
+        return speed;
+    }
+
+    public float getMaxHeight() {
+        return maxHeight.get();
+    }
+
+    public FloatProperty maxHeightProperty() {
+        return maxHeight;
     }
 
     public void setBallColor(Color color) {
