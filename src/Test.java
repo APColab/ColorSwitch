@@ -50,9 +50,9 @@ public class Test extends Application {
         testPane.getChildren().add(b.getBallView());
         testPane.getChildren().add(cs.getColorSwitchView());
         testStage.setScene(testScene);
-        testStage.show();
-//        Game g = new Game();
-//        g.gameView.getGameStage().show();
+        //testStage.show();
+        Game g = new Game();
+        g.gameView.getGameStage().show();
 //          MainMenu mm = new MainMenu();;
     }
 }

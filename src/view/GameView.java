@@ -1,6 +1,7 @@
 package view;
 
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -9,6 +10,9 @@ import model.Game;
 
 public class GameView {
     private Game game;
+
+    private final String GAME_BACKGROUND_URL = "resources/gamebg.png";
+    private BackgroundImage gameBackground;
 
     private Pane gamePane;
     private Scene gameScene;
@@ -30,6 +34,12 @@ public class GameView {
         this.gameScene = new Scene(gamePane,WIDTH,HEIGHT);
         this.gameStage = new Stage();
         this.obstaclePane = new AnchorPane[2];
+
+        gameBackground = new BackgroundImage(new Image(GAME_BACKGROUND_URL),
+                BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
+
+        gamePane.setBackground(new Background(gameBackground));
+
 
         for(int i=0;i<2;i++){
             obstaclePane[i] = new AnchorPane();
