@@ -1,5 +1,7 @@
 package menupages;
 
+import model.Game;
+
 public class MainMenu
 {
     public MainMenu()
@@ -10,6 +12,8 @@ public class MainMenu
     public void newGame()
     {
         System.out.println("New Game Pressed");
+        Game gm = new Game();
+        gm.getGameView().getGameStage().show();
         return;
     }
 

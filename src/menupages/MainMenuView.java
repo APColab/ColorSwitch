@@ -27,7 +27,7 @@ public class MainMenuView
 {
     private final static int MENU_BUTTON_START_X = 150;
     private final static int MENU_BUTTON_START_Y = 150;
-    private final String BUTTON_PATH = "-fx-background-color: transparent; -fx-background-image: url('/menupages/resources/";     //add button name ending with ');
+    private final String BUTTON_PATH = "-fx-background-color: transparent; -fx-background-image: url('/resources/";     //add button name ending with ');
     private ArrayList<GameButton> mainMenuButtons;
 
     private static final int HEIGHT = 600;
@@ -87,7 +87,7 @@ public class MainMenuView
             @Override
             public void handle(ActionEvent event) {
                 getMainmenu().newGame();
-                //menuStage.hide();
+                menuStage.hide();
             }
         });
     }
@@ -138,7 +138,7 @@ public class MainMenuView
     {
         RotateTransition rotateTransition = new RotateTransition();
         rotateTransition.setDuration(Duration.millis(2000));
-        Image image = new Image("/menupages/resources/rocket.png");
+        Image image = new Image("/resources/rocket.png");
         ImageView img = new ImageView();
         img.setImage(image);
         img.setFitHeight(80);
@@ -176,7 +176,7 @@ public class MainMenuView
 
     public void createBackground()
     {
-        Image bgImage = new Image("/menupages/resources/bg1.jpg", true);
+        Image bgImage = new Image("/resources/bg1.jpg", true);
         BackgroundImage bg = new BackgroundImage(bgImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
         menuPane.setBackground(new Background(bg));
     }

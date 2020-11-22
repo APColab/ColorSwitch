@@ -18,7 +18,7 @@ import java.io.FileNotFoundException;
 
 public class GameButton extends Button
 {
-    private final String MY_FONT = "src/menupages/resources/Proxima_Nova_Alt_Bold.otf";
+    private final String MY_FONT = "resources/Proxima_Nova_Alt_Bold.otf";
     private String idleButton;
     private String pressedButton;
 
@@ -29,7 +29,7 @@ public class GameButton extends Button
         pressedButton = pathButtonPressed;
         setFontForButton();
         setPrefWidth(190);
-        setPrefHeight(50);
+        setPrefHeight(45);
         setStyle(idleButton);
         initButtonListeners();
     }

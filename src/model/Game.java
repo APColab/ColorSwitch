@@ -11,7 +11,7 @@ import view.GameView;
 
 public class Game{
     private Ball ball;
-    public GameView gameView;
+    private GameView gameView;
     private final float HEIGHT = 800;
     private final float WIDTH = 600;
     private boolean isGameStarted;
@@ -20,6 +20,10 @@ public class Game{
         initializeSprites();
         setBindings();
         addEventHandlers();
+    }
+
+    public GameView getGameView() {
+        return gameView;
     }
 
     private void addEventHandlers() {
