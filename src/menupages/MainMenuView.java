@@ -1,5 +1,7 @@
 package menupages;
 
+import javafx.animation.Animation;
+import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -139,7 +141,8 @@ public class MainMenuView
         img.setLayoutX(230);
         rotateTransition.setNode(img);
         rotateTransition.setByAngle(360);
-        rotateTransition.setCycleCount(100);
+        rotateTransition.setCycleCount(Animation.INDEFINITE);
+        rotateTransition.setInterpolator(Interpolator.LINEAR);
         rotateTransition.setAutoReverse(false);
         rotateTransition.play();
         Group root = new Group(img);

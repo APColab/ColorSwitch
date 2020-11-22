@@ -12,6 +12,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.application.Application;
 import javafx.util.Duration;
+import menupages.MainMenu;
+import menupages.MainMenuView;
 import model.Ball;
 import model.CircularObstacle;
 import model.Game;
@@ -44,8 +46,9 @@ public class Test extends Application {
 //        });
 //        testPane.getChildren().add(c.getCircularObstacleView());
 //        testPane.getChildren().add(b.getBallView());
-        testStage.setScene(testScene);
-        Game g = new Game();
-        g.gameView.getGameStage().show();
+//        testStage.setScene(testScene);
+//        Game g = new Game();
+//        g.gameView.getGameStage().show();
+       MainMenuView m = new MainMenuView();
     }
 }
