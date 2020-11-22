@@ -49,6 +49,6 @@ public class Test extends Application {
 //        testStage.setScene(testScene);
 //        Game g = new Game();
 //        g.gameView.getGameStage().show();
-       MainMenuView m = new MainMenuView();
+          MainMenu mm = new MainMenu();;
     }
 }
