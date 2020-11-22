@@ -10,12 +10,14 @@ import javafx.scene.Scene;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.scene.input.MouseButton;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -34,8 +36,11 @@ public class MainMenuView
     private Scene menuScene;
     private Stage menuStage;
 
-    public MainMenuView()
+    private MainMenu mainmenu;
+
+    public MainMenuView(MainMenu menu)
     {
+        mainmenu = menu;
         mainMenuButtons = new ArrayList<>();
         menuPane = new AnchorPane();
         menuScene = new Scene(menuPane, WIDTH, HEIGHT);
@@ -52,6 +57,11 @@ public class MainMenuView
     public Stage getMenuStage()
     {
         return menuStage;
+    }
+
+    public MainMenu getMainmenu()
+    {
+        return mainmenu;
     }
 
     public ArrayList<GameButton> getMainMenuButtons() {
@@ -76,8 +86,7 @@ public class MainMenuView
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                MainMenu mm = new MainMenu();
-                mm.newGame();
+                getMainmenu().newGame();
                 //menuStage.hide();
             }
         });
@@ -93,8 +102,7 @@ public class MainMenuView
         loadButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                MainMenu mm = new MainMenu();
-                mm.loadGame();
+                getMainmenu().loadGame();
                 //menuStage.hide();
             }
         });
@@ -110,8 +118,7 @@ public class MainMenuView
         exitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                MainMenu mm = new MainMenu();
-                mm.exit();
+                getMainmenu().exit();
                 //menuStage.hide();
             }
         });
