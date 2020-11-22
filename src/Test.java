@@ -47,8 +47,8 @@ public class Test extends Application {
 //        testPane.getChildren().add(c.getCircularObstacleView());
 //        testPane.getChildren().add(b.getBallView());
 //        testStage.setScene(testScene);
-//        Game g = new Game();
-//        g.gameView.getGameStage().show();
-          MainMenu mm = new MainMenu();;
+        Game g = new Game();
+        g.gameView.getGameStage().show();
+//          MainMenu mm = new MainMenu();;
     }
 }

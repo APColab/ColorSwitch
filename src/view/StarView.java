@@ -3,6 +3,7 @@ package view;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -11,7 +12,7 @@ import model.Star;
 public class StarView extends ImageView {
     private Star star;
     private Image image;
-    RotateTransition rotateTransition;
+    TranslateTransition translateTransition;
 
     public StarView(Star s){
         this.star = s;
@@ -23,11 +24,12 @@ public class StarView extends ImageView {
         this.setPreserveRatio(true);
         this.setCache(true);
 
-        rotateTransition = new RotateTransition(Duration.millis(800),this);
-        rotateTransition.setInterpolator(Interpolator.LINEAR);
-        rotateTransition.setCycleCount(Animation.INDEFINITE);
-        rotateTransition.setByAngle(360);
-        rotateTransition.play();
+        translateTransition = new TranslateTransition(Duration.millis(800),this);
+        translateTransition.setInterpolator(Interpolator.EASE_OUT);
+        translateTransition.setCycleCount(Animation.INDEFINITE);
+        translateTransition.setAutoReverse(true);
+        translateTransition.setByY(8);
+        translateTransition.play();
     }
 
 
