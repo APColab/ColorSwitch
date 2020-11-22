@@ -4,6 +4,7 @@ import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -18,7 +19,10 @@ public class StarView extends ImageView {
         this.star = s;
         this.setLayoutX(s.getPos_X());
         this.setLayoutY(s.getPos_Y());
+        Glow glow = new Glow();
         image = new Image(s.getIMAGE_PATH());
+        glow.setLevel(0.3);
+        setEffect(glow);
         this.setImage(image);
         this.setFitHeight(30);
         this.setPreserveRatio(true);
