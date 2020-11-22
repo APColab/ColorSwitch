@@ -1,11 +1,15 @@
 package view;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import menupages.GameButton;
 import model.Ball;
 import model.Game;
+
+import java.util.ArrayList;
 
 public class GameView {
     private Game game;
@@ -15,15 +19,58 @@ public class GameView {
     private Stage gameStage;
 
     private AnchorPane[] obstaclePane;
+    private StackPane stackPane;
 
     private final float HEIGHT = 800;
     private final float WIDTH = 600;
 
+    private ArrayList<GameButton> inGameButtons;
+    private final String BUTTON_PATH = "-fx-background-color: transparent; -fx-background-image: url('/menupages/resources/";
+
     public GameView(Game game){
+        stackPane = new StackPane();
+        stackPane.setAlignment(Pos.TOP_CENTER);
         this.game = game;
+        inGameButtons = new ArrayList<>();
         initializeStage();
+        createButtons();
     }
 
+    public ArrayList<GameButton> getInGameButtons()
+    {
+        return inGameButtons;
+    }
+
+    private void addInGameButtons(GameButton button, int n)
+    {
+        button.setLayoutY(750);
+        button.setLayoutX(500 + n*50);
+        button.setMaxHeight(10);
+        button.setMaxWidth(10);
+        inGameButtons.add(button);
+        stackPane.getChildren().add(button);
+    }
+
+    private void pauseButton()
+    {
+        String idlePath = BUTTON_PATH + "pause.png');";
+        GameButton pauseButton = new GameButton("", idlePath, idlePath);
+        addInGameButtons(pauseButton, 0);
+        //pause button event handler
+    }
+
+    private void saveGameButton()
+    {
+        String idlePath = BUTTON_PATH + "save.png');";
+        GameButton saveButton = new GameButton("", idlePath, idlePath);
+        addInGameButtons(saveButton, 1);
+    }
+
+    public void createButtons()
+    {
+        pauseButton();
+        saveGameButton();
+    }
 
     public void initializeStage(){
         this.gamePane = new Pane();
