@@ -1,5 +1,9 @@
 package menupages;
 
+import javafx.animation.RotateTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
@@ -9,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -34,11 +39,12 @@ public class MainMenuView
         menuScene = new Scene(menuPane, WIDTH, HEIGHT);
         menuStage = new Stage();
         menuStage.setScene(menuScene);
+        menuStage.setResizable(false);
         createButtons();
-        menuStage.show();
-
         createName();
+        addRocket();
         createBackground();
+        menuStage.show();
     }
 
     public Stage getMenuStage()
@@ -65,6 +71,14 @@ public class MainMenuView
         String pressedPath = BUTTON_PATH + "green_button2.png');";
         GameButton startButton = new GameButton("NEW GAME", idlePath, pressedPath);
         addMainMenuButton(startButton, 1);
+        startButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                MainMenu mm = new MainMenu();
+                mm.newGame();
+                //menuStage.hide();
+            }
+        });
     }
 
     private void loadButton()
@@ -74,6 +88,14 @@ public class MainMenuView
         String pressedPath = BUTTON_PATH + "red_button2.png');";
         GameButton loadButton =  new GameButton("LOAD GAME", idlePath, pressedPath);
         addMainMenuButton(loadButton, 2);
+        loadButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                MainMenu mm = new MainMenu();
+                mm.loadGame();
+                //menuStage.hide();
+            }
+        });
     }
 
     private void exitButton()
@@ -83,6 +105,14 @@ public class MainMenuView
         String pressedPath = BUTTON_PATH + "blue_button2.png');";
         GameButton exitButton =  new GameButton("EXIT GAME", idlePath, pressedPath);
         addMainMenuButton(exitButton, 3);
+        exitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                MainMenu mm = new MainMenu();
+                mm.exit();
+                //menuStage.hide();
+            }
+        });
     }
 
     public void createButtons()
@@ -93,26 +123,31 @@ public class MainMenuView
 
     }
 
-    public void createBackground()
+    //public void rocketTransition(ImageView img, RotateTransition )
+
+    public void addRocket()
     {
-        Image bgImage = new Image("/menupages/resources/bg1.jpg", true);
-        BackgroundImage bg = new BackgroundImage(bgImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
-        menuPane.setBackground(new Background(bg));
+        RotateTransition rotateTransition = new RotateTransition();
+        rotateTransition.setDuration(Duration.millis(2000));
+        Image image = new Image("/menupages/resources/rocket.png");
+        ImageView img = new ImageView();
+        img.setImage(image);
+        img.setFitHeight(80);
+        img.setFitWidth(80);
+        img.setPreserveRatio(true);
+        img.setLayoutY(140);
+        img.setLayoutX(230);
+        rotateTransition.setNode(img);
+        rotateTransition.setByAngle(360);
+        rotateTransition.setCycleCount(100);
+        rotateTransition.setAutoReverse(false);
+        rotateTransition.play();
+        Group root = new Group(img);
+        menuPane.getChildren().add(root);
     }
 
-    public void createName() {
-        /**ImageView img = new ImageView("https://fontmeme.com/permalink/201122/0514574a31c5bdb8ea29d1fd19e2c41f.png");
-        img.setLayoutX(100);
-        img.setLayoutY(50);
-        img.setOnMouseEntered(mouseEvent ->
-        {
-            Glow glow = new Glow();
-            glow.setLevel(0.3);
-            img.setEffect(glow);
-        });
-
-        img.setOnMouseMoved(mouseEvent -> img.setEffect(null));
-        menuPane.getChildren().add(img);*/
+    public void createName()
+    {
         Text t = new Text();
         t.setText("Color Switch");
         try
@@ -127,6 +162,13 @@ public class MainMenuView
         t.setLayoutX(110);
         t.setLayoutY(100);
         menuPane.getChildren().add(t);
+    }
+
+    public void createBackground()
+    {
+        Image bgImage = new Image("/menupages/resources/bg1.jpg", true);
+        BackgroundImage bg = new BackgroundImage(bgImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
+        menuPane.setBackground(new Background(bg));
     }
 
 
