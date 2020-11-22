@@ -21,13 +21,15 @@ public class GameButton extends Button
     private final String MY_FONT = "resources/Proxima_Nova_Alt_Bold.otf";
     private String idleButton;
     private String pressedButton;
+    //private int fsize;
 
-    public GameButton(String st, String pathButtonIdle, String pathButtonPressed)
+    public GameButton(String st, String pathButtonIdle, String pathButtonPressed, int fontsize)
     {
         setText(st);
+        //fsize = fontsize;
         idleButton = pathButtonIdle;
         pressedButton = pathButtonPressed;
-        setFontForButton();
+        setFontForButton(fontsize);
         setPrefWidth(190);
         setPrefHeight(45);
         setStyle(idleButton);
@@ -42,19 +44,19 @@ public class GameButton extends Button
 
     private void setIdleButton()
     {
-        setPrefHeight(49);
+        setPrefHeight(45);
         setStyle(idleButton);
         setLayoutY(getLayoutY() - 4);
     }
 
-    private void setFontForButton()
+    private void setFontForButton(int fontsize)
     {
         try {
-            setFont(Font.loadFont(new FileInputStream(MY_FONT), 19));
+            setFont(Font.loadFont(new FileInputStream(MY_FONT), fontsize));
         }
         catch (FileNotFoundException e)
         {
-            setFont(Font.font("Verdana", FontWeight.BOLD, 19));
+            setFont(Font.font("Verdana", FontWeight.BOLD, fontsize));
         }
     }
 

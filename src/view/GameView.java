@@ -75,7 +75,7 @@ public class GameView {
         gamePane.getChildren().addAll(obstaclePane);
 
 
-        GameButton b = new GameButton("P", "-fx-background-color: transparent; -fx-background-image: url('/resources/green_button1.png')", "-fx-background-color: transparent; -fx-background-image: url('/resources/green_button2.png')");
+        GameButton b = new GameButton("Pause", "-fx-background-color: transparent; -fx-background-image: url('/resources/green_button1.png')", "-fx-background-color: transparent; -fx-background-image: url('/resources/green_button2.png')", 12);
         b.setLayoutX(WIDTH-100);
         b.setLayoutY(20);
         b.setPrefWidth(80);
@@ -84,7 +84,7 @@ public class GameView {
         //b.setMaxHeight(80);
         gamePane.getChildren().add(b);
 
-        GameButton b1 = new GameButton("S", "-fx-background-color: transparent; -fx-background-image: url('/resources/red_button1.png')", "-fx-background-color: transparent; -fx-background-image: url('/resources/red_button2.png')");
+        GameButton b1 = new GameButton("Save", "-fx-background-color: transparent; -fx-background-image: url('/resources/red_button1.png')", "-fx-background-color: transparent; -fx-background-image: url('/resources/red_button2.png')", 12);
         b1.setLayoutX(WIDTH-100);
         b1.setLayoutY(75);
         b1.setPrefWidth(80);

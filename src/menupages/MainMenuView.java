@@ -81,7 +81,7 @@ public class MainMenuView
         String idlePath = BUTTON_PATH + "green_button1.png');";
         System.out.println(idlePath);
         String pressedPath = BUTTON_PATH + "green_button2.png');";
-        GameButton startButton = new GameButton("NEW GAME", idlePath, pressedPath);
+        GameButton startButton = new GameButton("NEW GAME", idlePath, pressedPath, 19);
         addMainMenuButton(startButton, 1);
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -97,7 +97,7 @@ public class MainMenuView
         String idlePath = BUTTON_PATH + "red_button1.png');";
         System.out.println(idlePath);
         String pressedPath = BUTTON_PATH + "red_button2.png');";
-        GameButton loadButton =  new GameButton("LOAD GAME", idlePath, pressedPath);
+        GameButton loadButton =  new GameButton("LOAD GAME", idlePath, pressedPath, 19);
         addMainMenuButton(loadButton, 2);
         loadButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -113,7 +113,7 @@ public class MainMenuView
         String idlePath = BUTTON_PATH + "blue_button1.png');";
         System.out.println(idlePath);
         String pressedPath = BUTTON_PATH + "blue_button2.png');";
-        GameButton exitButton =  new GameButton("EXIT GAME", idlePath, pressedPath);
+        GameButton exitButton =  new GameButton("EXIT GAME", idlePath, pressedPath, 19);
         addMainMenuButton(exitButton, 3);
         exitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
