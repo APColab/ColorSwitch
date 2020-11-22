@@ -1,82 +1,60 @@
 package view;
 
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import menupages.GameButton;
-import model.Ball;
-import model.Game;
-
-import java.util.ArrayList;
+import model.*;
 
 public class GameView {
     private Game game;
+
+    private final String GAME_BACKGROUND_URL = "resources/gamebg.png";
+    private BackgroundImage gameBackground;
 
     private Pane gamePane;
     private Scene gameScene;
     private Stage gameStage;
 
     private AnchorPane[] obstaclePane;
-    private StackPane stackPane;
 
     private final float HEIGHT = 800;
     private final float WIDTH = 600;
 
-    private ArrayList<GameButton> inGameButtons;
-    private final String BUTTON_PATH = "-fx-background-color: transparent; -fx-background-image: url('/menupages/resources/";
-
     public GameView(Game game){
-        stackPane = new StackPane();
-        stackPane.setAlignment(Pos.TOP_CENTER);
         this.game = game;
-        inGameButtons = new ArrayList<>();
         initializeStage();
-        createButtons();
+        needToDeleteThisAndDoThisTheProperWay();
     }
 
-    public ArrayList<GameButton> getInGameButtons()
-    {
-        return inGameButtons;
+    private void needToDeleteThisAndDoThisTheProperWay() {
+        for(int i=0;i<2;i++){
+            for(int j=0;j<2;j++){
+                CircularObstacle c = new CircularObstacle();
+                c.setPos_X(WIDTH/2-c.getRadius());
+                c.setPos_Y(j*4*c.getRadius());
+                obstaclePane[i].getChildren().add(c.getCircularObstacleView());
+                Star s = new Star(c);
+                obstaclePane[i].getChildren().add(s.getStarView());
+                ColorSwitch cs = new ColorSwitch(c);
+                obstaclePane[i].getChildren().add(cs.getColorSwitchView());
+            }
+        }
     }
 
-    private void addInGameButtons(GameButton button, int n)
-    {
-        button.setLayoutY(750);
-        button.setLayoutX(500 + n*50);
-        button.setMaxHeight(10);
-        button.setMaxWidth(10);
-        inGameButtons.add(button);
-        stackPane.getChildren().add(button);
-    }
-
-    private void pauseButton()
-    {
-        String idlePath = BUTTON_PATH + "pause.png');";
-        GameButton pauseButton = new GameButton("", idlePath, idlePath);
-        addInGameButtons(pauseButton, 0);
-        //pause button event handler
-    }
-
-    private void saveGameButton()
-    {
-        String idlePath = BUTTON_PATH + "save.png');";
-        GameButton saveButton = new GameButton("", idlePath, idlePath);
-        addInGameButtons(saveButton, 1);
-    }
-
-    public void createButtons()
-    {
-        pauseButton();
-        saveGameButton();
-    }
 
     public void initializeStage(){
         this.gamePane = new Pane();
         this.gameScene = new Scene(gamePane,WIDTH,HEIGHT);
         this.gameStage = new Stage();
         this.obstaclePane = new AnchorPane[2];
+
+        gameBackground = new BackgroundImage(new Image(GAME_BACKGROUND_URL),
+                BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
+
+        gamePane.setBackground(new Background(gameBackground));
+
 
         for(int i=0;i<2;i++){
             obstaclePane[i] = new AnchorPane();
@@ -86,8 +64,8 @@ public class GameView {
         }
         obstaclePane[0].setLayoutY(-0.5*HEIGHT);
         obstaclePane[1].setLayoutY((obstaclePane[0].getLayoutY()-HEIGHT));
-        obstaclePane[1].setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(10))));
-        obstaclePane[0].setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(10))));
+//        obstaclePane[1].setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(10))));
+//        obstaclePane[0].setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(10))));
         gamePane.getChildren().add(game.getBall().getBallView());
         gamePane.getChildren().addAll(obstaclePane);
         gameStage.setScene(gameScene);
