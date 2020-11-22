@@ -1,56 +1,78 @@
-package view;
+package model;
 
-import javafx.scene.Scene;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import model.Ball;
-import model.Game;
 
-public class GameView {
-    private Game game;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
+import view.GameView;
 
-    private Pane gamePane;
-    private Scene gameScene;
-    private Stage gameStage;
-
-    private AnchorPane[] obstaclePane;
-
+public class Game{
+    private Ball ball;
+    public GameView gameView;
     private final float HEIGHT = 800;
     private final float WIDTH = 600;
+    private boolean isGameStarted;
 
-    public GameView(Game game){
-        this.game = game;
-        initializeStage();
+    public Game(){
+        initializeSprites();
+        setBindings();
+        addEventHandlers();
     }
 
-
-    public void initializeStage(){
-        this.gamePane = new Pane();
-        this.gameScene = new Scene(gamePane,WIDTH,HEIGHT);
-        this.gameStage = new Stage();
-        this.obstaclePane = new AnchorPane[2];
-
-        for(int i=0;i<2;i++){
-            obstaclePane[i] = new AnchorPane();
-            obstaclePane[i].setPrefHeight(HEIGHT);
-            obstaclePane[i].setPrefWidth(WIDTH);
-            obstaclePane[i].setLayoutX(0);
-        }
-        obstaclePane[0].setLayoutY(-0.5*HEIGHT);
-        obstaclePane[1].setLayoutY((obstaclePane[0].getLayoutY()-HEIGHT));
-        obstaclePane[1].setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(10))));
-        obstaclePane[0].setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(10))));
-        gamePane.getChildren().add(game.getBall().getBallView());
-        gamePane.getChildren().addAll(obstaclePane);
-        gameStage.setScene(gameScene);
+    private void addEventHandlers() {
+        gameView.getGameStage().addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if(!isGameStarted){
+                    isGameStarted = true;
+                    ball.getGravity().start();
+                }
+                ball.jump();
+            }
+        });
     }
 
-    public AnchorPane[] getObstaclePane() {
-        return obstaclePane;
+    private void setBindings(){
+        ball.speedProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                if(ball.getPos_Y()<=ball.getMaxHeight()+5){
+                    if((float)t1<=0f){
+                        gameView.getObstaclePane()[0].setLayoutY(gameView.getObstaclePane()[0].getLayoutY()-(float)t1);
+                        gameView.getObstaclePane()[1].setLayoutY(gameView.getObstaclePane()[1].getLayoutY()-(float)t1);
+                    }
+                    if(gameView.getObstaclePane()[0].getLayoutY()>=HEIGHT){
+                        gameView.getObstaclePane()[0].setLayoutY(gameView.getObstaclePane()[1].getLayoutY()-HEIGHT);
+                    }
+                    if(gameView.getObstaclePane()[1].getLayoutY()>=HEIGHT){
+                        gameView.getObstaclePane()[1].setLayoutY(gameView.getObstaclePane()[0].getLayoutY()-HEIGHT);
+                    }
+                }
+            }
+        });
     }
 
-    public Stage getGameStage() {
-        return gameStage;
+    private float test(){
+        System.out.println("here");
+        return 30;
+    }
+
+    private void initializeSprites(){
+        isGameStarted = false;
+        this.ball = new Ball();
+        ball.setPos_X(WIDTH/2);
+        ball.setPos_Y(HEIGHT-3*ball.getRADIUS());
+        gameView = new GameView(this);
+    }
+
+    public Ball getBall() {
+        return ball;
+    }
+
+    public void setBall(Ball ball) {
+        this.ball = ball;
     }
 }
