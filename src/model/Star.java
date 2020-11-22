@@ -36,6 +36,6 @@ public class Star extends Collectable{
 
     @Override
     public void findPosition(Obstacle o) {
-        this.setPos_Y(o.getPos_Y());
+        this.setPos_Y(o.getPos_Y()+50);
     }
 }
