@@ -2,7 +2,7 @@ package menupages;
 
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
-import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -15,6 +15,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.input.MouseButton;
@@ -132,12 +133,12 @@ public class MainMenuView
 
     }
 
-    //public void rocketTransition(ImageView img, RotateTransition )
+    //public void rocketTransition(ImageView img, TranslateTransition )
 
     public void addRocket()
     {
-        RotateTransition rotateTransition = new RotateTransition();
-        rotateTransition.setDuration(Duration.millis(2000));
+        TranslateTransition translateTransition = new TranslateTransition();
+        translateTransition.setDuration(Duration.millis(1500));
         Image image = new Image("/resources/rocket.png");
         ImageView img = new ImageView();
         img.setImage(image);
@@ -146,12 +147,12 @@ public class MainMenuView
         img.setPreserveRatio(true);
         img.setLayoutY(140);
         img.setLayoutX(230);
-        rotateTransition.setNode(img);
-        rotateTransition.setByAngle(360);
-        rotateTransition.setCycleCount(Animation.INDEFINITE);
-        rotateTransition.setInterpolator(Interpolator.LINEAR);
-        rotateTransition.setAutoReverse(false);
-        rotateTransition.play();
+        translateTransition.setNode(img);
+        translateTransition.setByY(10);
+        translateTransition.setCycleCount(Animation.INDEFINITE);
+        translateTransition.setInterpolator(Interpolator.EASE_OUT);
+        translateTransition.setAutoReverse(true);
+        translateTransition.play();
         Group root = new Group(img);
         menuPane.getChildren().add(root);
     }
