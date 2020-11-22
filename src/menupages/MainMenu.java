@@ -2,6 +2,11 @@ package menupages;
 
 public class MainMenu
 {
+    public MainMenu()
+    {
+        MainMenuView mmv = new MainMenuView(this);
+    }
+
     public void newGame()
     {
         System.out.println("New Game Pressed");
@@ -21,3 +26,4 @@ public class MainMenu
     }
 
 }
+
