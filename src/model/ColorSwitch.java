@@ -10,7 +10,7 @@ public class ColorSwitch extends Collectable{
     private final String IMAGE_PATH = "resources/colorswitch.png";
 
     public ColorSwitch(Obstacle o){
-        this(300,0);
+        this(285,0);
         this.findPosition(o);
     }
 
@@ -37,6 +37,6 @@ public class ColorSwitch extends Collectable{
 
     @Override
     public void findPosition(Obstacle o) {
-        this.setPos_Y(o.getPos_Y()-30);
+        this.setPos_Y(o.getPos_Y()-115);
     }
 }

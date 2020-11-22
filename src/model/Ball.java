@@ -16,7 +16,7 @@ import view.BallView;
 public class Ball extends Circle implements Collidable {
     private FloatProperty pos_X;
     private FloatProperty pos_Y;
-    private final float RADIUS = 20 ;
+    private final float RADIUS = 15 ;
     private BallView ballView;
     private Color ballColor;
     private AnimationTimer gravity;
@@ -68,7 +68,7 @@ public class Ball extends Circle implements Collidable {
     }
 
     public void jump(){
-        speed.setValue(-10f);
+        speed.setValue(-8f);
     }
 
     public float getPos_X() {

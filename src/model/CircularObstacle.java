@@ -19,7 +19,7 @@ public class CircularObstacle extends Obstacle{
     }
 
     public CircularObstacle() {
-        this(200,100,40.0f,15.0f);
+        this(200,100,100.0f,10.0f);
     }
 
     public float getRadius() {

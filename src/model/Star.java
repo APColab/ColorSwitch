@@ -9,7 +9,7 @@ public class Star extends Collectable{
     private final String IMAGE_PATH = "resources/star.png";
 
     public Star(Obstacle o){
-        this(300,0);
+        this(285,0);
         this.findPosition(o);
     }
 
@@ -36,6 +36,6 @@ public class Star extends Collectable{
 
     @Override
     public void findPosition(Obstacle o) {
-        this.setPos_Y(o.getPos_Y()+50);
+        this.setPos_Y(o.getPos_Y()+85);
     }
 }
