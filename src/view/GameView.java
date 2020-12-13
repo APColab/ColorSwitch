@@ -38,18 +38,17 @@ public class GameView {
                     CircularObstacle c = new CircularObstacle();
                     c.setPos_X(WIDTH/2-c.getRadius());
                     c.setPos_Y(j*4*c.getRadius());
-                    obstaclePane[i].getChildren().add(c.getCircularObstacleView());
+                    obstaclePane[i].getChildren().add(c.getObstacleView());
                     Star s = new Star(c);
                     obstaclePane[i].getChildren().add(s.getStarView());
                     ColorSwitch cs = new ColorSwitch(c);
                     obstaclePane[i].getChildren().add(cs.getColorSwitchView());
                 }
                 else {
-                    RectangularObstacle c = new RectangularObstacle(0,0);
-                    c.setPos_X(WIDTH / 2);
-                    c.setPos_Y(j * 4 * c.getLength());
-                    c.getRectangularObstacleView().setLayoutX(WIDTH/2 -100);
-                    obstaclePane[i].getChildren().add(c.getRectangularObstacleView());
+                    CrossObstacle c = new CrossObstacle(0,0);
+                    c.setPos_X(WIDTH / 2+50);
+                    c.setPos_Y(j * 4 * c.getHeight());
+                    obstaclePane[i].getChildren().add(c.getObstacleView());
                     Star s = new Star(c);
                     obstaclePane[i].getChildren().add(s.getStarView());
                     ColorSwitch cs = new ColorSwitch(c);

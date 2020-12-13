@@ -22,9 +22,7 @@ public class RectangularObstacle extends Obstacle {
     }
 
 
-    public RectangularObstacleView getRectangularObstacleView() {
-        return (RectangularObstacleView) getObstacleView();
-    }
+
 
     @Override
     public void setBindings() {

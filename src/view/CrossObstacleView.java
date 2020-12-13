@@ -4,22 +4,20 @@ import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Arc;
-import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Line;
 import javafx.util.Duration;
-import model.CircularObstacle;
+import model.CrossObstacle;
 
-public class CircularObstacleView extends ObstacleView {
+public class CrossObstacleView extends ObstacleView{
 
-
-    public CircularObstacleView(CircularObstacle c){
+    public CrossObstacleView(CrossObstacle c){
         super(c,new RotateTransition(Duration.millis(3000)));
-        for(int i =0;i<4;i++){
-            Arc a = new Arc(c.getRadius(),c.getRadius(),c.getRadius(),c.getRadius(),i*90,90);
-            a.setType(ArcType.OPEN);
-            a.setStrokeWidth(c.getStroke());
-            a.setFill(Color.TRANSPARENT);
-            getShapeList().add(a);
+        getShapeList().add(new Line(c.getWidth()/2,c.getHeight()/2,c.getWidth()/2,0));
+        getShapeList().add(new Line(c.getWidth()/2,c.getHeight()/2,c.getWidth(),c.getHeight()/2));
+        getShapeList().add(new Line(c.getWidth()/2,c.getHeight()/2,c.getWidth()/2,c.getHeight()));
+        getShapeList().add(new Line(c.getWidth()/2,c.getHeight()/2,0,c.getHeight()/2));
+        for(int i=0;i<4;i++){
+            getShapeList().get(i).setStrokeWidth(c.getStroke());
         }
         getShapeList().get(0).setStroke(Color.RED);
         getShapeList().get(1).setStroke(Color.BLUE);
@@ -37,6 +35,4 @@ public class CircularObstacleView extends ObstacleView {
         ((RotateTransition)getTransition()).setInterpolator(Interpolator.LINEAR);
         ((RotateTransition)getTransition()).play();
     }
-
-
 }

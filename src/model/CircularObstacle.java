@@ -27,14 +27,6 @@ public class CircularObstacle extends Obstacle{
     }
 
 
-
-
-
-
-    public CircularObstacleView getCircularObstacleView() {
-        return (CircularObstacleView)getObstacleView() ;
-    }
-
     @Override
     public void setBindings() {
         this.pos_XProperty().bindBidirectional(this.getObstacleView().layoutXProperty());
