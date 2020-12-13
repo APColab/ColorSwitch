@@ -2,58 +2,56 @@ package model;
 
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.scene.shape.Arc;
 import view.CircularObstacleView;
 
 public class CircularObstacle extends Obstacle{
-    private FloatProperty radius;
-    private FloatProperty width;
-    private CircularObstacleView circularObstacleView;
+    private final FloatProperty radius;
+    private final FloatProperty width;
 
-    public CircularObstacle(float pos_x, float pos_y, float r, float w){
+    public CircularObstacle(float pos_x, float pos_y, float w){
         this.setPos_X(pos_x);
         this.setPos_Y(pos_y);
-        this.radius = new SimpleFloatProperty(r);
+        this.radius = new SimpleFloatProperty(getHeight()/2);
         this.width = new SimpleFloatProperty(w);
-        circularObstacleView = new CircularObstacleView(this);
+        setObstacleView(new CircularObstacleView(this));
         setBindings();
     }
 
+
+
     public CircularObstacle() {
-        this(200,100,100.0f,10.0f);
+        this(200,100,10.0f);
     }
 
     public float getRadius() {
         return radius.getValue();
     }
 
-    public void setRadius(float radius) {
-        this.radius.setValue(radius);
-    }
+
 
     public float getWidth() {
         return width.getValue();
     }
 
-    public void setWidth(float width) {
-        this.width.setValue(width);
-    }
+
 
     public CircularObstacleView getCircularObstacleView() {
-        return circularObstacleView;
+        return (CircularObstacleView)getObstacleView() ;
     }
 
     @Override
     public void setBindings() {
-        this.getPos_XProperty().bindBidirectional(this.circularObstacleView.layoutXProperty());
-        this.getPos_YProperty().bindBidirectional(this.circularObstacleView.layoutYProperty());
+        this.pos_XProperty().bindBidirectional(this.getObstacleView().layoutXProperty());
+        this.pos_YProperty().bindBidirectional(this.getObstacleView().layoutYProperty());
         for(int i=0;i<4;i++){
-            circularObstacleView.getArcs()[i].centerXProperty().bind(radius);
-            circularObstacleView.getArcs()[i].centerYProperty().bind(radius);
-            circularObstacleView.getArcs()[i].radiusXProperty().bind(radius);
-            circularObstacleView.getArcs()[i].radiusYProperty().bind(radius);
-            circularObstacleView.getArcs()[i].strokeWidthProperty().bind(width);
+            ((Arc)getObstacleView().getShapeList().get(i)).centerXProperty().bind(radius);
+            ((Arc)getObstacleView().getShapeList().get(i)).centerYProperty().bind(radius);
+            ((Arc)getObstacleView().getShapeList().get(i)).radiusXProperty().bind(radius);
+            ((Arc)getObstacleView().getShapeList().get(i)).radiusYProperty().bind(radius);
+            ((Arc)getObstacleView().getShapeList().get(i)).strokeWidthProperty().bind(width);
         }
-        circularObstacleView.prefHeightProperty().bind(radius.multiply(2.0f));
-        circularObstacleView.prefWidthProperty().bind(radius.multiply(2.0f));
+        this.getObstacleView().prefHeightProperty().bind(radius.multiply(2.0f));
+        this.getObstacleView().prefWidthProperty().bind(radius.multiply(2.0f));
     }
 }
