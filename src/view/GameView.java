@@ -45,8 +45,8 @@ public class GameView {
                     obstaclePane[i].getChildren().add(cs.getColorSwitchView());
                 }
                 else {
-                    CrossObstacle c = new CrossObstacle(0,0);
-                    c.setPos_X(WIDTH / 2+50);
+                    TriangleObstacle c = new TriangleObstacle(0,0,Color.YELLOW);
+                    c.setPos_X(WIDTH / 2-c.getWidth()/2);
                     c.setPos_Y(j * 4 * c.getHeight());
                     obstaclePane[i].getChildren().add(c.getObstacleView());
                     Star s = new Star(c);
