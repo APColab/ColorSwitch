@@ -31,28 +31,6 @@ public class Test extends Application {
         testStage = new Stage();
         Pane testPane = new Pane();
         Scene testScene = new Scene(testPane,600,800);
-        CircularObstacle c = new CircularObstacle();
-        c.setPos_X(400);
-        c.setRadius(100);
-        Ball b = new Ball();
-        b.setPos_X(90);
-        b.setPos_Y(70);
-        testStage.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if(keyEvent.getCode()== KeyCode.SPACE){
-                    b.jump();
-                }
-            }
-        });
-        ColorSwitch cs = new ColorSwitch(c);
-        testPane.getChildren().add(c.getCircularObstacleView());
-        testPane.getChildren().add(b.getBallView());
-        testPane.getChildren().add(cs.getColorSwitchView());
-        testStage.setScene(testScene);
-        //testStage.show();
-        //Game g = new Game();
-        //g.gameView.getGameStage().show();
-         MainMenu mm = new MainMenu();;
+        MainMenu mm = new MainMenu();;
     }
 }

@@ -1,6 +1,7 @@
 package model;
 
 
+import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.value.ChangeListener;
@@ -15,8 +16,10 @@ public class Game{
     private final float HEIGHT = 800;
     private final float WIDTH = 600;
     private boolean isGameStarted;
+    private GameLoop gameLoop;
 
     public Game(){
+        gameLoop = new GameLoop();
         initializeSprites();
         setBindings();
         addEventHandlers();
@@ -32,9 +35,9 @@ public class Game{
             public void handle(KeyEvent keyEvent) {
                 if(!isGameStarted){
                     isGameStarted = true;
-                    ball.getGravity().start();
+                    gameLoop.start();
                 }
-                ball.jump();
+                ball.goUp();
             }
         });
     }
@@ -59,11 +62,28 @@ public class Game{
         });
     }
 
-    private float test(){
-        System.out.println("here");
-        return 30;
+
+    class GameLoop extends AnimationTimer {
+        long startTime = -1;
+        @Override
+        public void handle(long l) {
+            if(startTime==-1){
+                startTime = l;
+            }
+            updatePositions();
+        }
     }
 
+    private void updatePositions(){
+        ball.speedProperty().setValue(ball.getSpeed()+0.4f);
+        if(ball.getPos_Y()<=ball.getMaxHeight()){
+            if(ball.getSpeed()>0){
+                ball.goDown();
+            }
+        }else{
+            ball.goDown();
+        }
+    }
     private void initializeSprites(){
         isGameStarted = false;
         this.ball = new Ball();

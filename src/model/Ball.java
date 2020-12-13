@@ -19,7 +19,6 @@ public class Ball extends Circle implements Collidable {
     private final float RADIUS = 15 ;
     private BallView ballView;
     private Color ballColor;
-    private AnimationTimer gravity;
     private FloatProperty speed;
     private FloatProperty maxHeight;
 
@@ -36,7 +35,7 @@ public class Ball extends Circle implements Collidable {
         maxHeight = new SimpleFloatProperty(400);
         speed = new SimpleFloatProperty(0);
         setBindings();
-        gravity = new Gravity();
+
     }
 
     private void setBindings() {
@@ -44,30 +43,9 @@ public class Ball extends Circle implements Collidable {
         pos_Y.bindBidirectional(ballView.layoutYProperty());
     }
 
-    class Gravity extends AnimationTimer{
-        long startTime = -1;
-        @Override
-        public void handle(long l) {
-            if(startTime==-1){
-                startTime = l;
-            }
-            speed.setValue(speed.getValue()+0.4f);
-            if(getPos_Y()<=maxHeight.getValue()){
-                if(speed.getValue()<0){
 
-                }
-                else{
-                    setPos_Y(getPos_Y() + speed.getValue());
-                }
-            }
-            else{
-                setPos_Y(getPos_Y()+speed.getValue());
-            }
 
-        }
-    }
-
-    public void jump(){
+    public void goUp(){
         speed.setValue(-8f);
     }
 
@@ -107,9 +85,6 @@ public class Ball extends Circle implements Collidable {
         return ballColor;
     }
 
-    public AnimationTimer getGravity() {
-        return gravity;
-    }
 
     public float getSpeed() {
         return speed.get();
@@ -125,6 +100,10 @@ public class Ball extends Circle implements Collidable {
 
     public FloatProperty maxHeightProperty() {
         return maxHeight;
+    }
+
+    public void goDown(){
+        setPos_Y(this.getPos_Y()+speed.getValue());
     }
 
     public void setBallColor(Color color) {
