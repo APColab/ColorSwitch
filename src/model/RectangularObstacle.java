@@ -6,26 +6,32 @@ import view.RectangularObstacleView;
 
 public class RectangularObstacle extends Obstacle {
     private FloatProperty length;
-    private FloatProperty width;
-    private RectangularObstacleView rectangularObstacleView;
+    private FloatProperty breadth;
 
     public RectangularObstacle(float pos_x, float pos_y){
-        rectangularObstacleView = new RectangularObstacleView(this);
         this.setPos_X(pos_x);
         this.setPos_Y(pos_y);
-        this.setLength(200);
-        this.setWidth(200);
+        this.length = new SimpleFloatProperty(getHeight());
+        this.breadth = new SimpleFloatProperty(getWidth());
+        setObstacleView(new RectangularObstacleView(this));
+        setBindings();
     }
 
+    public RectangularObstacle(){
+        this(200,100);
+    }
+
+
     public RectangularObstacleView getRectangularObstacleView() {
-        return rectangularObstacleView;
+        return (RectangularObstacleView) getObstacleView();
     }
 
     @Override
     public void setBindings() {
-        this.getPos_XProperty().bindBidirectional(this.rectangularObstacleView.layoutXProperty());
-        this.getPos_YProperty().bindBidirectional(this.rectangularObstacleView.layoutYProperty());
+        this.pos_XProperty().bindBidirectional(this.getObstacleView().layoutXProperty());
+        this.pos_YProperty().bindBidirectional(this.getObstacleView().layoutYProperty());
     }
+
 
     public float getLength() {
         return length.get();
@@ -36,24 +42,18 @@ public class RectangularObstacle extends Obstacle {
     }
 
     public void setLength(float length) {
-        if(this.length==null){
-            this.length = new SimpleFloatProperty();
-        }
         this.length.set(length);
     }
 
-    public float getWidth() {
-        return width.get();
+    public float getBreadth() {
+        return breadth.get();
     }
 
-    public FloatProperty widthProperty() {
-        return width;
+    public FloatProperty breadthProperty() {
+        return breadth;
     }
 
-    public void setWidth(float width) {
-        if(this.width==null){
-            this.width = new SimpleFloatProperty();
-        }
-        this.width.set(width);
+    public void setBreadth(float breadth) {
+        this.breadth.set(breadth);
     }
 }

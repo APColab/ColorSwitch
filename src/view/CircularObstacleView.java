@@ -12,14 +12,6 @@ import model.CircularObstacle;
 public class CircularObstacleView extends ObstacleView {
 
 
-    public CircularObstacle getCircle() {
-        return (CircularObstacle)getObstacle() ;
-    }
-
-    public CircularObstacleView(){
-        this(new CircularObstacle());
-    }
-
     public CircularObstacleView(CircularObstacle c){
         super(c,new RotateTransition(Duration.millis(3000)));
         for(int i =0;i<4;i++){
@@ -44,6 +36,10 @@ public class CircularObstacleView extends ObstacleView {
         ((RotateTransition)getTransition()).setByAngle(360);
         ((RotateTransition)getTransition()).setInterpolator(Interpolator.LINEAR);
         ((RotateTransition)getTransition()).play();
+    }
+
+    public CircularObstacle getCircle() {
+        return (CircularObstacle)getObstacle() ;
     }
 
 
