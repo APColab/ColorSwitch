@@ -7,13 +7,11 @@ import view.CircularObstacleView;
 
 public class CircularObstacle extends Obstacle{
     private final FloatProperty radius;
-    private final FloatProperty width;
 
-    public CircularObstacle(float pos_x, float pos_y, float w){
+    public CircularObstacle(float pos_x, float pos_y){
         this.setPos_X(pos_x);
         this.setPos_Y(pos_y);
         this.radius = new SimpleFloatProperty(getHeight()/2);
-        this.width = new SimpleFloatProperty(w);
         setObstacleView(new CircularObstacleView(this));
         setBindings();
     }
@@ -21,7 +19,7 @@ public class CircularObstacle extends Obstacle{
 
 
     public CircularObstacle() {
-        this(200,100,10.0f);
+        this(200,100);
     }
 
     public float getRadius() {
@@ -30,9 +28,6 @@ public class CircularObstacle extends Obstacle{
 
 
 
-    public float getWidth() {
-        return width.getValue();
-    }
 
 
 
@@ -49,7 +44,6 @@ public class CircularObstacle extends Obstacle{
             ((Arc)getObstacleView().getShapeList().get(i)).centerYProperty().bind(radius);
             ((Arc)getObstacleView().getShapeList().get(i)).radiusXProperty().bind(radius);
             ((Arc)getObstacleView().getShapeList().get(i)).radiusYProperty().bind(radius);
-            ((Arc)getObstacleView().getShapeList().get(i)).strokeWidthProperty().bind(width);
         }
         this.getObstacleView().prefHeightProperty().bind(radius.multiply(2.0f));
         this.getObstacleView().prefWidthProperty().bind(radius.multiply(2.0f));

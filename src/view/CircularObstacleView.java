@@ -25,7 +25,7 @@ public class CircularObstacleView extends ObstacleView {
         for(int i =0;i<4;i++){
             Arc a = new Arc(c.getRadius(),c.getRadius(),c.getRadius(),c.getRadius(),i*90,90);
             a.setType(ArcType.OPEN);
-            a.setStrokeWidth(c.getWidth());
+            a.setStrokeWidth(c.getStroke());
             a.setFill(Color.TRANSPARENT);
             getShapeList().add(a);
         }

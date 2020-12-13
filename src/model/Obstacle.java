@@ -9,8 +9,12 @@ public abstract class Obstacle implements Collidable {
     private FloatProperty pos_Y;
     private final float height = 200;
     private final float width = 200;
+    private final float stroke = 10.0f;
     private ObstacleView obstacleView;
 
+    public float getStroke() {
+        return stroke;
+    }
 
     public float getPos_X() {
         return pos_X.get();
