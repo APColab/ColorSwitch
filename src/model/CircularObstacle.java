@@ -6,7 +6,7 @@ import javafx.scene.shape.Arc;
 import view.CircularObstacleView;
 
 public class CircularObstacle extends Obstacle{
-    private final FloatProperty radius;
+    private FloatProperty radius;
 
     public CircularObstacle(float pos_x, float pos_y){
         this.setPos_X(pos_x);
@@ -16,7 +16,13 @@ public class CircularObstacle extends Obstacle{
         setBindings();
     }
 
+    public FloatProperty radiusProperty() {
+        return radius;
+    }
 
+    public void setRadius(float radius) {
+        this.radius.set(radius);
+    }
 
     public CircularObstacle() {
         this(200,100);

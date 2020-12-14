@@ -45,7 +45,7 @@ public class GameView {
                     obstaclePane[i].getChildren().add(cs.getColorSwitchView());
                 }
                 else {
-                    TriangleObstacle c = new TriangleObstacle(0,0,Color.YELLOW);
+                    DoubleCircleObstacle c = new DoubleCircleObstacle(0,0,Color.BLUE);
                     c.setPos_X(WIDTH / 2-c.getWidth()/2);
                     c.setPos_Y(j * 4 * c.getHeight());
                     obstaclePane[i].getChildren().add(c.getObstacleView());
