@@ -19,7 +19,7 @@ public class ColorSwitchView extends ImageView {
         this.setLayoutY(c.getPos_Y());
         image = new Image(c.getIMAGE_PATH());
         this.setImage(image);
-        this.setFitHeight(30);
+        this.setFitHeight(colorSwitch.getHeight());
         this.setPreserveRatio(true);
         this.setCache(true);
 
