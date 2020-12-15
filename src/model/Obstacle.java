@@ -72,4 +72,19 @@ public abstract class Obstacle implements Collidable {
     public ArrayList<Shape> getCollidables(){
         return (ArrayList<Shape>)obstacleView.getShapeList();
     }
+
+
+    @Override
+    public boolean isColliding(Collidable collidable) {
+        ArrayList<Shape> collidableList = collidable.getCollidables();
+        for(Shape ball:collidableList){
+            for(Shape s:getObstacleView().getShapeList()){
+                Shape intersect = Shape.intersect(ball,s);
+                if(intersect.getBoundsInLocal().getWidth() != -1 && !s.getStroke().equals(((Ball)collidable).getBallColor())){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

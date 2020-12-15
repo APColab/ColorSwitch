@@ -54,4 +54,10 @@ public class RectangularObstacle extends Obstacle {
     public void setBreadth(float breadth) {
         this.breadth.set(breadth);
     }
+
+
+    @Override
+    public void handleCollision() {
+
+    }
 }

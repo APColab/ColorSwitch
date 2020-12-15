@@ -50,19 +50,7 @@ public class CircularObstacle extends Obstacle{
         this.getObstacleView().prefWidthProperty().bind(radius.multiply(2.0f));
     }
 
-    @Override
-    public boolean isColliding(Collidable collidable) {
-        ArrayList<Shape> collidableList = collidable.getCollidables();
-        for(Shape ball:collidableList){
-            for(Shape s:getObstacleView().getShapeList()){
-                Shape intersect = Shape.intersect(ball,s);
-                if(intersect.getBoundsInLocal().getWidth() != -1 && !s.getStroke().equals(((Ball)collidable).getBallColor())){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+
 
     @Override
     public void handleCollision() {

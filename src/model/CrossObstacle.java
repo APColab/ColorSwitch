@@ -18,4 +18,11 @@ public class CrossObstacle extends Obstacle{
         this.pos_XProperty().bindBidirectional(this.getObstacleView().layoutXProperty());
         this.pos_YProperty().bindBidirectional(this.getObstacleView().layoutYProperty());
     }
+
+
+
+    @Override
+    public void handleCollision() {
+
+    }
 }

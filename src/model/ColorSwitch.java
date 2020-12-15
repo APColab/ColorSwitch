@@ -1,7 +1,10 @@
 package model;
 
+import javafx.scene.shape.Shape;
 import view.ColorSwitchView;
 import view.StarView;
+
+import java.util.ArrayList;
 
 public class ColorSwitch extends Collectable{
 
@@ -38,5 +41,20 @@ public class ColorSwitch extends Collectable{
     @Override
     public void findPosition(Obstacle o) {
         this.setPos_Y(o.getPos_Y()-115);
+    }
+
+    @Override
+    public ArrayList<Shape> getCollidables() {
+        return null;
+    }
+
+    @Override
+    public boolean isColliding(Collidable collidable) {
+        return false;
+    }
+
+    @Override
+    public void handleCollision() {
+
     }
 }

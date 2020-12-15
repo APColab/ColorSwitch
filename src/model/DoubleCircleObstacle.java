@@ -39,4 +39,14 @@ public class DoubleCircleObstacle extends Obstacle{
         this.pos_XProperty().bindBidirectional(this.getObstacleView().layoutXProperty());
         this.pos_YProperty().bindBidirectional(this.getObstacleView().layoutYProperty());
     }
+
+    @Override
+    public boolean isColliding(Collidable collidable) {
+        return super.isColliding(collidable) || outer.isColliding(collidable);
+    }
+
+    @Override
+    public void handleCollision() {
+
+    }
 }
