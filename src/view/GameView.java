@@ -39,9 +39,9 @@ public class GameView {
                     c.setPos_X(WIDTH/2-c.getRadius());
                     c.setPos_Y(j*4*c.getRadius());
                     obstaclePane[i].getChildren().add(c.getObstacleView());
-                    Star s = new Star(c);
+                    Star s = new Star(game,c);
                     obstaclePane[i].getChildren().add(s.getStarView());
-                    ColorSwitch cs = new ColorSwitch(c);
+                    ColorSwitch cs = new ColorSwitch(game,c);
                     obstaclePane[i].getChildren().add(cs.getColorSwitchView());
                 }
                 else {
@@ -49,9 +49,9 @@ public class GameView {
                     c.setPos_X(WIDTH / 2-c.getWidth()/2);
                     c.setPos_Y(j * 4 * c.getHeight());
                     obstaclePane[i].getChildren().add(c.getObstacleView());
-                    Star s = new Star(c);
+                    Star s = new Star(game,c);
                     obstaclePane[i].getChildren().add(s.getStarView());
-                    ColorSwitch cs = new ColorSwitch(c);
+                    ColorSwitch cs = new ColorSwitch(game,c);
                     obstaclePane[i].getChildren().add(cs.getColorSwitchView());
                 }
 
