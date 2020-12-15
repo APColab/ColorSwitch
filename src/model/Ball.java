@@ -1,16 +1,13 @@
 package model;
 
-import javafx.animation.*;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.util.Duration;
+import javafx.scene.shape.Shape;
 import view.BallView;
+
+import java.util.ArrayList;
 
 
 public class Ball extends Circle implements Collidable {
@@ -109,5 +106,30 @@ public class Ball extends Circle implements Collidable {
     public void setBallColor(Color color) {
         this.ballColor = color;
         ballView.setColor(color);
+    }
+
+
+    @Override
+    public ArrayList<Shape> getCollidables() {
+        ArrayList<Shape> ar = new ArrayList<>();
+        ar.add(ballView);
+        return ar;
+    }
+
+    @Override
+    public boolean isColliding(Collidable collidable) {
+        ArrayList<Shape> ar = collidable.getCollidables();
+        for(Shape shape:ar){
+            Shape intersect = Shape.intersect(shape,ballView);
+            if(intersect.getBoundsInLocal().getWidth() != -1){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void handleCollision() {
+        System.out.println("Collision Detected");
     }
 }
