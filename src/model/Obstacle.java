@@ -2,7 +2,11 @@ package model;
 
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.scene.shape.Shape;
 import view.ObstacleView;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class Obstacle implements Collidable {
     private FloatProperty pos_X;
@@ -63,4 +67,9 @@ public abstract class Obstacle implements Collidable {
     }
 
     public abstract void setBindings();
+
+    @Override
+    public ArrayList<Shape> getCollidables(){
+        return (ArrayList<Shape>)obstacleView.getShapeList();
+    }
 }
