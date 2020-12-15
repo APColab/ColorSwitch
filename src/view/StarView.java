@@ -24,7 +24,7 @@ public class StarView extends ImageView {
         glow.setLevel(0.3);
         setEffect(glow);
         this.setImage(image);
-        this.setFitHeight(30);
+        this.setFitHeight(star.getHeight());
         this.setPreserveRatio(true);
         this.setCache(true);
 

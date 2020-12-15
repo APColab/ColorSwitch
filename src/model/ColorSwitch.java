@@ -12,14 +12,19 @@ public class ColorSwitch extends Collectable{
 
     private final String IMAGE_PATH = "resources/colorswitch.png";
 
-    public ColorSwitch(Obstacle o){
-        this(285,0);
+    public ColorSwitch(Game game){
+        this(game,285,0);
+    }
+
+    public ColorSwitch(Game game,Obstacle o){
+        this(game,285,0);
         this.findPosition(o);
     }
 
-    public ColorSwitch(float pos_x, float pos_y){
+    public ColorSwitch(Game game,float pos_x, float pos_y){
         this.setPos_X(pos_x);
         this.setPos_Y(pos_y);
+        this.setGame(game);
         colorSwitchView = new ColorSwitchView(this);
         setbindings();
     }
@@ -50,7 +55,12 @@ public class ColorSwitch extends Collectable{
 
     @Override
     public boolean isColliding(Collidable collidable) {
-        return false;
+        ArrayList<Shape> shapeList = collidable.getCollidables();
+        boolean c = false;
+        for(Shape shape:shapeList){
+            c = c || colorSwitchView.localToScene(colorSwitchView.getBoundsInLocal()).intersects(shape.localToScene(shape.getBoundsInLocal()));
+        }
+        return c;
     }
 
     @Override

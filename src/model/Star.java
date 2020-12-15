@@ -1,5 +1,6 @@
 package model;
 
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import view.StarView;
 
@@ -11,14 +12,19 @@ public class Star extends Collectable{
 
     private final String IMAGE_PATH = "resources/star.png";
 
-    public Star(Obstacle o){
-        this(285,0);
+    public Star(Game game){
+        this(game,285,0);
+    }
+
+    public Star(Game game,Obstacle o){
+        this(game,285,0);
         this.findPosition(o);
     }
 
-    public Star(float pos_x, float pos_y){
+    public Star(Game game,float pos_x, float pos_y){
         this.setPos_X(pos_x);
         this.setPos_Y(pos_y);
+        this.setGame(game);
         starView = new StarView(this);
         setbindings();
     }
@@ -49,7 +55,12 @@ public class Star extends Collectable{
 
     @Override
     public boolean isColliding(Collidable collidable) {
-        return false;
+        ArrayList<Shape> shapeList = collidable.getCollidables();
+        boolean c = false;
+        for(Shape shape:shapeList){
+            c = c || starView.localToScene(starView.getBoundsInLocal()).intersects(shape.localToScene(shape.getBoundsInLocal()));
+        }
+        return c;
     }
 
     @Override

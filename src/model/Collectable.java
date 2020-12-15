@@ -6,7 +6,8 @@ import javafx.beans.property.SimpleFloatProperty;
 public abstract class Collectable implements Collidable{
     private FloatProperty pos_X;
     private FloatProperty pos_Y;
-
+    private final float height = 30;
+    private Game game;
     public float getPos_X() {
         return pos_X.get();
     }
@@ -35,6 +36,18 @@ public abstract class Collectable implements Collidable{
             this.pos_Y = new SimpleFloatProperty();
         }
         this.pos_Y.set(pos_Y);
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public abstract void setbindings();
