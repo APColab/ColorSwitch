@@ -56,7 +56,7 @@ public class Game{
     {
         CircularObstacle c4 = new CircularObstacle();
         c4.setPos_X(WIDTH/2-c4.getRadius());
-        c4.setPos_Y(5*c4.getRadius());
+        c4.setPos_Y(c4.getRadius());
         gameView.getObstaclePane()[0].getChildren().add(c4.getObstacleView());
         Star s4 = new Star(this,c4);
         gameView.getObstaclePane()[0].getChildren().add(s4.getStarView());
@@ -65,6 +65,19 @@ public class Game{
         this.getObstacleList().add(c4);
         this.getCollectableList().add(s4);
         this.getCollectableList().add(cs4);
+
+        CircularObstacle c6 = new CircularObstacle();
+        c6.setPos_X(WIDTH/2-c6.getRadius());
+        c6.setPos_Y(5*c6.getRadius());
+        gameView.getObstaclePane()[1].getChildren().add(c6.getObstacleView());
+        Star s6 = new Star(this,c6);
+        gameView.getObstaclePane()[1].getChildren().add(s6.getStarView());
+        ColorSwitch cs6 = new ColorSwitch(this,c6);
+        gameView.getObstaclePane()[1].getChildren().add(cs6.getColorSwitchView());
+        this.getObstacleList().add(c6);
+        this.getCollectableList().add(s6);
+        this.getCollectableList().add(cs6);
+
 
         CircularObstacle c5 = new CircularObstacle();
         c4.setPos_X(WIDTH/2-c5.getRadius());
@@ -77,18 +90,6 @@ public class Game{
         this.getObstacleList().add(c5);
         this.getCollectableList().add(s5);
         this.getCollectableList().add(cs5);
-
-        CircularObstacle c6 = new CircularObstacle();
-        c6.setPos_X(WIDTH/2-c6.getRadius());
-        c6.setPos_Y(c6.getRadius());
-        gameView.getObstaclePane()[0].getChildren().add(c6.getObstacleView());
-        Star s6 = new Star(this,c6);
-        gameView.getObstaclePane()[0].getChildren().add(s6.getStarView());
-        ColorSwitch cs6 = new ColorSwitch(this,c6);
-        gameView.getObstaclePane()[0].getChildren().add(cs6.getColorSwitchView());
-        this.getObstacleList().add(c6);
-        this.getCollectableList().add(s6);
-        this.getCollectableList().add(cs6);
 
         getObstacleList().add(c4);
         getObstacleList().add(c5);
@@ -108,7 +109,7 @@ public class Game{
         }
     }
 
-    private void addObstacles(int index)
+    private void addObstacles(int index, int number)
     {
         Random rand = new Random();
         int n = rand.nextInt(5);
@@ -117,7 +118,8 @@ public class Game{
             case 0: //double c
                 DoubleCircleObstacle c = new DoubleCircleObstacle(0,0, Color.BLUE);
                 c.setPos_X(WIDTH / 2-c.getWidth()/2);
-                c.setPos_Y(c.getHeight());
+               // c.setPos_Y(c.getHeight());
+                c.setPos_Y(70+number);
                 gameView.getObstaclePane()[index].getChildren().add(c.getObstacleView());
                 Star s = new Star(this,c);
                 gameView.getObstaclePane()[index].getChildren().add(s.getStarView());
@@ -130,8 +132,9 @@ public class Game{
 
             case 1:
                 TriangleObstacle c1 = new TriangleObstacle(0,0, Color.GREEN);
-                c1.setPos_X(WIDTH / 2-c1.getCenterToVertex()+30);
-                c1.setPos_Y(3*c1.getCenterToVertex());
+                c1.setPos_X(WIDTH / 2-c1.getCenterToVertex()+55);
+                //c1.setPos_Y(c1.getCenterToVertex()-70);
+                c1.setPos_Y(70+number);
                 gameView.getObstaclePane()[index].getChildren().add(c1.getObstacleView());
                 Star s1 = new Star(this,c1);
                 gameView.getObstaclePane()[index].getChildren().add(s1.getStarView());
@@ -145,7 +148,8 @@ public class Game{
             case 2:
                 RectangularObstacle c2 = new RectangularObstacle();
                 c2.setPos_X(WIDTH / 2-c2.getWidth()/2);
-                c2.setPos_Y(c2.getHeight());
+               // c2.setPos_Y(number*c2.getHeight()-140);
+                c2.setPos_Y(70+number);
                 gameView.getObstaclePane()[index].getChildren().add(c2.getObstacleView());
                 Star s2 = new Star(this,c2);
                 gameView.getObstaclePane()[index].getChildren().add(s2.getStarView());
@@ -157,7 +161,8 @@ public class Game{
                 break;
 
             case 3:
-                CrossObstacle c3 = new CrossObstacle(WIDTH/2-10, HEIGHT/2);
+                //CrossObstacle c3 = new CrossObstacle(WIDTH/2-10, number*HEIGHT/2 - 350);
+                CrossObstacle c3 = new CrossObstacle(WIDTH/2-10, 70+number);
                 gameView.getObstaclePane()[index].getChildren().add(c3.getObstacleView());
                 Star s3 = new Star(this,c3);
                 gameView.getObstaclePane()[index].getChildren().add(s3.getStarView());
@@ -171,7 +176,8 @@ public class Game{
             default:
                 CircularObstacle c4 = new CircularObstacle();
                 c4.setPos_X(WIDTH/2-c4.getRadius());
-                c4.setPos_Y(c4.getRadius());
+                //c4.setPos_Y(number*c4.getRadius()-50);
+                c4.setPos_Y(70+number);
                 gameView.getObstaclePane()[index].getChildren().add(c4.getObstacleView());
                 Star s4 = new Star(this,c4);
                 gameView.getObstaclePane()[index].getChildren().add(s4.getStarView());
@@ -218,15 +224,19 @@ public class Game{
                     removeObstacles(0);
                     removeCollectables(0);
                     //if(getObstacleList().size()<2)
-                        addObstacles(0);
+                    addObstacles(0,0);
+                    addObstacles(0,380);
                 }
                 if(gameView.getObstaclePane()[1].getLayoutY()>=HEIGHT){
-                    addObstacles(1);
+                    //addObstacles(1);
                     gameView.getObstaclePane()[1].setLayoutY(gameView.getObstaclePane()[0].getLayoutY()-HEIGHT);
                     removeObstacles(1);
                     removeCollectables(1);
                     //if(getObstacleList().size()<2)
-                        addObstacles(1);
+                    addObstacles(1,0);
+                    addObstacles(1,380);
+
+                   //addObstacles(1,0);
 
                 }
             }
