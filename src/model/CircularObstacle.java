@@ -6,7 +6,12 @@ import javafx.scene.shape.Arc;
 import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 import view.CircularObstacleView;
+import view.CrossObstacleView;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serial;
 import java.util.ArrayList;
 
 public class CircularObstacle extends Obstacle{
@@ -51,6 +56,28 @@ public class CircularObstacle extends Obstacle{
         this.getObstacleView().prefWidthProperty().bind(radius.multiply(2.0f));
     }
 
+
+
+
+    @Serial
+    private void writeObject(ObjectOutputStream ous) throws IOException {
+        ous.defaultWriteObject();
+        ous.writeFloat(getPos_X());
+        ous.writeFloat(getPos_Y());
+        ous.writeFloat(getRadius());
+        ous.writeDouble(getObstacleView().getTransition().getCurrentTime().toMillis());
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream ois) throws ClassNotFoundException,IOException{
+        ois.defaultReadObject();
+        this.setPos_X(ois.readFloat());
+        this.setPos_Y(ois.readFloat());
+        this.radius = new SimpleFloatProperty(ois.readFloat());
+        setObstacleView(new CircularObstacleView(this));
+        setBindings();
+        getObstacleView().getTransition().jumpTo(Duration.millis(ois.readDouble()));
+    }
 
 
     @Override
