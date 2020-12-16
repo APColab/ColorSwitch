@@ -118,7 +118,6 @@ public class Game{
             case 0: //double c
                 DoubleCircleObstacle c = new DoubleCircleObstacle(0,0, Color.BLUE);
                 c.setPos_X(WIDTH / 2-c.getWidth()/2);
-               // c.setPos_Y(c.getHeight());
                 c.setPos_Y(70+number);
                 gameView.getObstaclePane()[index].getChildren().add(c.getObstacleView());
                 Star s = new Star(this,c);
@@ -133,7 +132,6 @@ public class Game{
             case 1:
                 TriangleObstacle c1 = new TriangleObstacle(0,0, Color.GREEN);
                 c1.setPos_X(WIDTH / 2-c1.getCenterToVertex()+55);
-                //c1.setPos_Y(c1.getCenterToVertex()-70);
                 c1.setPos_Y(70+number);
                 gameView.getObstaclePane()[index].getChildren().add(c1.getObstacleView());
                 Star s1 = new Star(this,c1);
@@ -148,7 +146,6 @@ public class Game{
             case 2:
                 RectangularObstacle c2 = new RectangularObstacle();
                 c2.setPos_X(WIDTH / 2-c2.getWidth()/2);
-               // c2.setPos_Y(number*c2.getHeight()-140);
                 c2.setPos_Y(70+number);
                 gameView.getObstaclePane()[index].getChildren().add(c2.getObstacleView());
                 Star s2 = new Star(this,c2);
@@ -161,7 +158,6 @@ public class Game{
                 break;
 
             case 3:
-                //CrossObstacle c3 = new CrossObstacle(WIDTH/2-10, number*HEIGHT/2 - 350);
                 CrossObstacle c3 = new CrossObstacle(WIDTH/2-10, 70+number);
                 gameView.getObstaclePane()[index].getChildren().add(c3.getObstacleView());
                 Star s3 = new Star(this,c3);
@@ -176,7 +172,6 @@ public class Game{
             default:
                 CircularObstacle c4 = new CircularObstacle();
                 c4.setPos_X(WIDTH/2-c4.getRadius());
-                //c4.setPos_Y(number*c4.getRadius()-50);
                 c4.setPos_Y(70+number);
                 gameView.getObstaclePane()[index].getChildren().add(c4.getObstacleView());
                 Star s4 = new Star(this,c4);
@@ -223,21 +218,15 @@ public class Game{
                     gameView.getObstaclePane()[0].setLayoutY(gameView.getObstaclePane()[1].getLayoutY()-HEIGHT);
                     removeObstacles(0);
                     removeCollectables(0);
-                    //if(getObstacleList().size()<2)
                     addObstacles(0,0);
                     addObstacles(0,380);
                 }
                 if(gameView.getObstaclePane()[1].getLayoutY()>=HEIGHT){
-                    //addObstacles(1);
                     gameView.getObstaclePane()[1].setLayoutY(gameView.getObstaclePane()[0].getLayoutY()-HEIGHT);
                     removeObstacles(1);
                     removeCollectables(1);
-                    //if(getObstacleList().size()<2)
                     addObstacles(1,0);
                     addObstacles(1,380);
-
-                   //addObstacles(1,0);
-
                 }
             }
         }else{
