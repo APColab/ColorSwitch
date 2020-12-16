@@ -7,6 +7,11 @@ public class CollectedStars {
 
     public CollectedStars(){
         totalStars = 0L;
+        try {
+            this.loadStars();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public long getTotalStars() {
