@@ -6,6 +6,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import menupages.GameButton;
+import menupages.PauseMenu;
+import menupages.PauseMenuView;
 import model.*;
 
 public class GameView {
@@ -28,6 +30,8 @@ public class GameView {
         this.game = game;
         initializeStage();
         gameStage.setResizable(false);
+        placePause();
+
       //  needToDeleteThisAndDoThisTheProperWay();
     }
 
@@ -115,6 +119,15 @@ public class GameView {
         gamePane.getChildren().add(b1);
         gamePane.requestFocus();
         gameStage.setScene(gameScene);
+    }
+
+    public void placePause()
+    {
+        PauseMenu p = new PauseMenu(game);
+        PauseMenuView pmv = new PauseMenuView(game);
+        pmv.setLayoutY(200);
+        pmv.setLayoutX(40);
+        gamePane.getChildren().add(pmv);
     }
 
     public AnchorPane[] getObstaclePane() {

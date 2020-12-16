@@ -9,7 +9,7 @@ public class PauseMenu
     Game game;
     public PauseMenu(Game _game)
     {
-        PauseMenuView pmv = new PauseMenuView(this);
+        PauseMenuView pmv = new PauseMenuView(_game);
         game = _game;
     }
 

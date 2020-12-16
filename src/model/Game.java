@@ -9,6 +9,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import menupages.PauseMenu;
+import menupages.PauseMenuView;
 import view.GameView;
 
 import java.util.ArrayList;
@@ -95,7 +97,6 @@ public class Game{
         getObstacleList().add(c5);
         getObstacleList().add(c6);
     }
-
 
 
     class GameLoop extends AnimationTimer {
@@ -255,5 +256,10 @@ public class Game{
 
     public List<Collectable> getCollectableList() {
         return collectableList;
+    }
+
+    public void pause()
+    {
+        System.out.println("press pause");
     }
 }
