@@ -24,7 +24,14 @@ public class CollectedStars {
     }
 
     public void loadStars() throws IOException{
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./stars.sav"));
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream("./stars.sav");
+        } catch (FileNotFoundException e) {
+            totalStars = 0L;
+            return;
+        }
+        ObjectInputStream ois = new ObjectInputStream(fis);
         this.totalStars = ois.readLong();
         ois.close();
     }
