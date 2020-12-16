@@ -43,6 +43,9 @@ public class GameView {
                     obstaclePane[i].getChildren().add(s.getStarView());
                     ColorSwitch cs = new ColorSwitch(game,c);
                     obstaclePane[i].getChildren().add(cs.getColorSwitchView());
+                    game.getObstacleList().add(c);
+                    game.getCollectableList().add(s);
+                    game.getCollectableList().add(cs);
                 }
                 else {
                     DoubleCircleObstacle c = new DoubleCircleObstacle(0,0,Color.BLUE);
@@ -53,6 +56,9 @@ public class GameView {
                     obstaclePane[i].getChildren().add(s.getStarView());
                     ColorSwitch cs = new ColorSwitch(game,c);
                     obstaclePane[i].getChildren().add(cs.getColorSwitchView());
+                    game.getObstacleList().add(c);
+                    game.getCollectableList().add(s);
+                    game.getCollectableList().add(cs);
                 }
 
             }
@@ -84,8 +90,8 @@ public class GameView {
         obstaclePane[1].setLayoutY((obstaclePane[0].getLayoutY()-HEIGHT));
         scoreView = new ScoreView();
         gamePane.getChildren().add(scoreView);
-//        obstaclePane[1].setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(10))));
-//        obstaclePane[0].setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(10))));
+        obstaclePane[1].setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(10))));
+        obstaclePane[0].setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(10))));
         gamePane.getChildren().add(game.getBall().getBallView());
         gamePane.getChildren().addAll(obstaclePane);
 

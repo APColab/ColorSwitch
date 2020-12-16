@@ -10,6 +10,10 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import view.GameView;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class Game{
     private Ball ball;
     private GameView gameView;
@@ -17,9 +21,13 @@ public class Game{
     private final float WIDTH = 600;
     private boolean isGameStarted;
     private GameLoop gameLoop;
+    private List<Obstacle> obstacleList;
+    private List<Collectable> collectableList;
 
     public Game(){
         gameLoop = new GameLoop();
+        obstacleList = new ArrayList<>();
+        collectableList = new ArrayList<>();
         initializeSprites();
         addEventHandlers();
     }
@@ -54,6 +62,29 @@ public class Game{
         }
     }
 
+
+    private void removeObstacles(int index){
+        Iterator<Obstacle> itr = obstacleList.iterator();
+        while (itr.hasNext()){
+            Obstacle o = itr.next();
+            if(gameView.getObstaclePane()[index].getChildren().contains(o.getObstacleView())){
+                gameView.getObstaclePane()[index].getChildren().remove(o.getObstacleView());
+                itr.remove();
+            }
+        }
+    }
+
+    private void removeCollectables(int index){
+        Iterator<Collectable> itr = collectableList.iterator();
+        while (itr.hasNext()){
+            Collectable o = itr.next();
+            if(gameView.getObstaclePane()[index].getChildren().contains(o.getCollectableView())){
+                gameView.getObstaclePane()[index].getChildren().remove(o.getCollectableView());
+                itr.remove();
+            }
+        }
+    }
+
     private void updatePositions(){
         ball.speedProperty().setValue(ball.getSpeed()+0.4f);
         if(ball.getPos_Y()<=ball.getMaxHeight()){
@@ -64,9 +95,13 @@ public class Game{
                 gameView.getObstaclePane()[1].setLayoutY(gameView.getObstaclePane()[1].getLayoutY()-ball.getSpeed());
                 if(gameView.getObstaclePane()[0].getLayoutY()>=HEIGHT){
                     gameView.getObstaclePane()[0].setLayoutY(gameView.getObstaclePane()[1].getLayoutY()-HEIGHT);
+                    removeObstacles(0);
+                    removeCollectables(0);
                 }
                 if(gameView.getObstaclePane()[1].getLayoutY()>=HEIGHT){
                     gameView.getObstaclePane()[1].setLayoutY(gameView.getObstaclePane()[0].getLayoutY()-HEIGHT);
+                    removeObstacles(1);
+                    removeCollectables(1);
                 }
             }
         }else{
@@ -87,5 +122,13 @@ public class Game{
 
     public void setBall(Ball ball) {
         this.ball = ball;
+    }
+
+    public List<Obstacle> getObstacleList() {
+        return obstacleList;
+    }
+
+    public List<Collectable> getCollectableList() {
+        return collectableList;
     }
 }

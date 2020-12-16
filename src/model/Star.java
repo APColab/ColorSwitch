@@ -1,5 +1,6 @@
 package model;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import view.StarView;
@@ -41,6 +42,11 @@ public class Star extends Collectable{
     public void setbindings() {
         this.pos_XProperty().bindBidirectional(starView.layoutXProperty());
         this.pos_YProperty().bindBidirectional(starView.layoutYProperty());
+    }
+
+    @Override
+    public ImageView getCollectableView() {
+        return starView;
     }
 
     @Override

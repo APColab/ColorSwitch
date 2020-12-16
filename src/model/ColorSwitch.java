@@ -1,5 +1,6 @@
 package model;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Shape;
 import view.ColorSwitchView;
 import view.StarView;
@@ -41,6 +42,11 @@ public class ColorSwitch extends Collectable{
     public void setbindings() {
         this.pos_XProperty().bindBidirectional(colorSwitchView.layoutXProperty());
         this.pos_YProperty().bindBidirectional(colorSwitchView.layoutYProperty());
+    }
+
+    @Override
+    public ImageView getCollectableView() {
+        return colorSwitchView;
     }
 
     @Override

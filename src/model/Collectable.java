@@ -2,6 +2,7 @@ package model;
 
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.scene.image.ImageView;
 
 public abstract class Collectable implements Collidable{
     private FloatProperty pos_X;
@@ -51,5 +52,6 @@ public abstract class Collectable implements Collidable{
     }
 
     public abstract void setbindings();
+    public abstract ImageView getCollectableView();
     public abstract void findPosition(Obstacle o);
 }
