@@ -4,11 +4,14 @@ package model;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.util.converter.NumberStringConverter;
 import view.GameView;
 
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ public class Game{
     private final float WIDTH = 600;
     private boolean isGameStarted;
     private GameLoop gameLoop;
+    private LongProperty score;
     private List<Obstacle> obstacleList;
     private List<Collectable> collectableList;
 
@@ -30,9 +34,15 @@ public class Game{
         gameLoop = new GameLoop();
         obstacleList = new ArrayList<>();
         collectableList = new ArrayList<>();
+        score = new SimpleLongProperty(0);
         initializeSprites();
         addEventHandlers();
+        setBindings();
         initialiseObstacles();
+    }
+
+    private void setBindings() {
+        gameView.getScoreView().textProperty().bindBidirectional(score,new NumberStringConverter());
     }
 
     public GameView getGameView() {
@@ -92,6 +102,7 @@ public class Game{
                 startTime = l;
             }
             updatePositions();
+            checkCollisions();
         }
     }
 
@@ -229,6 +240,24 @@ public class Game{
         gameView = new GameView(this);
     }
 
+    private void checkCollisions(){
+        for(Obstacle o:obstacleList){
+            if(o.isColliding(ball)){
+                o.handleCollision();
+            }
+        }
+        Iterator<Collectable> itr = collectableList.iterator();
+        while(itr.hasNext()){
+            Collectable c = itr.next();
+            if(c.isColliding(ball)){
+                gameView.getObstaclePane()[0].getChildren().remove(c.getCollectableView());
+                gameView.getObstaclePane()[1].getChildren().remove(c.getCollectableView());
+                itr.remove();
+                c.handleCollision();
+            }
+        }
+    }
+
     public Ball getBall() {
         return ball;
     }
@@ -243,5 +272,17 @@ public class Game{
 
     public List<Collectable> getCollectableList() {
         return collectableList;
+    }
+
+    public long getScore() {
+        return score.get();
+    }
+
+    public LongProperty scoreProperty() {
+        return score;
+    }
+
+    public void setScore(long score) {
+        this.score.set(score);
     }
 }
