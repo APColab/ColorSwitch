@@ -1,6 +1,13 @@
 package model;
 
+import javafx.beans.property.SimpleFloatProperty;
+import view.CircularObstacleView;
 import view.CrossObstacleView;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serial;
 
 public class CrossObstacle extends Obstacle{
 
@@ -12,6 +19,22 @@ public class CrossObstacle extends Obstacle{
     }
 
 
+
+    @Serial
+    private void writeObject(ObjectOutputStream ous) throws IOException {
+        ous.defaultWriteObject();
+        ous.writeFloat(getPos_X());
+        ous.writeFloat(getPos_Y());
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream ois) throws ClassNotFoundException,IOException{
+        ois.defaultReadObject();
+        this.setPos_X(ois.readFloat());
+        this.setPos_Y(ois.readFloat());
+        setObstacleView(new CrossObstacleView(this));
+        setBindings();
+    }
 
     @Override
     public void setBindings() {
