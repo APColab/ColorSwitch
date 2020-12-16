@@ -85,12 +85,12 @@ public class MainMenuView
         String pressedPath = BUTTON_PATH + "green_button2.png');";
         GameButton startButton = new GameButton("NEW GAME", idlePath, pressedPath, 19);
         addMainMenuButton(startButton, 1);
-        startButton.setOnAction(new EventHandler<ActionEvent>() {
+        startButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(ActionEvent event) {
-                getMainmenu().newGame();
-                menuStage.hide();
-                menuPane.getChildren().clear();
+            public void handle(MouseEvent event) {
+                    getMainmenu().newGame();
+                    menuStage.hide();
+                    menuPane.getChildren().clear();
             }
         });
     }
@@ -102,9 +102,9 @@ public class MainMenuView
         String pressedPath = BUTTON_PATH + "red_button2.png');";
         GameButton loadButton =  new GameButton("LOAD GAME", idlePath, pressedPath, 19);
         addMainMenuButton(loadButton, 2);
-        loadButton.setOnAction(new EventHandler<ActionEvent>() {
+        loadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(MouseEvent event) {
                 getMainmenu().loadGame();
                 //menuStage.hide();
             }
@@ -118,9 +118,9 @@ public class MainMenuView
         String pressedPath = BUTTON_PATH + "blue_button2.png');";
         GameButton exitButton =  new GameButton("EXIT GAME", idlePath, pressedPath, 19);
         addMainMenuButton(exitButton, 3);
-        exitButton.setOnAction(new EventHandler<ActionEvent>() {
+        exitButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(MouseEvent event) {
                 getMainmenu().exit();
                 //menuStage.hide();
             }

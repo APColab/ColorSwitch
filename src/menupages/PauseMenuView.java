@@ -10,6 +10,7 @@ import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import model.Game;
+import model.GameState;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -85,10 +87,15 @@ public class PauseMenuView
         resumeButton.setLayoutX(80);
         resumeButton.setLayoutY(200);
         pausePane.getChildren().add(resumeButton);
-        resumeButton.setOnAction(new EventHandler<ActionEvent>() {
+        resumeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(MouseEvent event) {
                 System.out.println("Resume");
+                if(pauseMenu.getGame().getGAME_STATE()== GameState.GAME_PAUSED)
+                {
+                    pauseStage.hide();
+                    pauseMenu.resumeGame();
+                }
             }
         });
 
@@ -99,9 +106,9 @@ public class PauseMenuView
         exitButton.setLayoutX(350);
         exitButton.setLayoutY(200);
         pausePane.getChildren().add(exitButton);
-        exitButton.setOnAction(new EventHandler<ActionEvent>() {
+        exitButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(MouseEvent event) {
                  pauseStage.hide();
                  pauseMenu.getGame().getGameView().getGameStage().hide();
                  pauseMenu.exitToMainMenu();

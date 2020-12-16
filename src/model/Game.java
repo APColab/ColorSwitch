@@ -68,7 +68,7 @@ public class Game{
                     ball.goUp();
                 }else if(keyEvent.getCode()== KeyCode.P && GAME_STATE==GameState.GAME_RUNNING){
                     GAME_STATE = GameState.GAME_PAUSED;
-                    pause();
+                   // pause();
                 }else if(keyEvent.getCode()== KeyCode.R && GAME_STATE==GameState.GAME_PAUSED){
                     GAME_STATE = GameState.GAME_RUNNING;
                     gameLoop.start();
@@ -205,8 +205,6 @@ public class Game{
                     addObstacles(1,1,true);
                     addObstacles(1,2,true);
 
-                   //addObstacles(1,0);
-
                 }
             }
         }else{
@@ -239,8 +237,18 @@ public class Game{
     }
 
 
-    public void pause(){
+    public void pause(Game game) {
+        PauseMenu p = new PauseMenu(game);
+        p.setMenu(p);
         gameLoop.stop();
+        setGAME_STATE(GameState.GAME_PAUSED);
+    }
+
+    public void resumeGame()
+    {
+        for(int i=0;i<300000000;i++);
+        getGameLoop().start();
+        setGAME_STATE(GameState.GAME_RUNNING);
     }
 
     public Ball getBall() {
@@ -271,9 +279,15 @@ public class Game{
         this.score.set(score);
     }
 
-    public void pause(Game game) {
-        PauseMenu p = new PauseMenu(game);
-        p.setMenu(p);
+    public GameState getGAME_STATE() {
+        return GAME_STATE;
     }
 
+    public void setGAME_STATE(GameState GAME_STATE) {
+        this.GAME_STATE = GAME_STATE;
+    }
+
+    public GameLoop getGameLoop() {
+        return gameLoop;
+    }
 }
