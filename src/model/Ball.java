@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Ball extends Circle implements Collidable {
     private FloatProperty pos_X;
     private FloatProperty pos_Y;
-    private final float RADIUS = 15 ;
+    private final float RADIUS = 12 ;
     private BallView ballView;
     private Color ballColor;
     private FloatProperty speed;

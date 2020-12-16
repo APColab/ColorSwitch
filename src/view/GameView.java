@@ -28,7 +28,7 @@ public class GameView {
         this.game = game;
         initializeStage();
         gameStage.setResizable(false);
-        needToDeleteThisAndDoThisTheProperWay();
+      //  needToDeleteThisAndDoThisTheProperWay();
     }
 
     private void needToDeleteThisAndDoThisTheProperWay() {
