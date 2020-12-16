@@ -24,6 +24,11 @@ public class ColorSwitch extends Collectable{
         this.findPosition(o);
     }
 
+    public ColorSwitch(Game game,Obstacle o,Color color){
+        this(game,285,0,color);
+        this.findPosition(o);
+    }
+
     public ColorSwitch(Game game,float pos_x, float pos_y){
         this(game,pos_x,pos_y,Color.RED);
     }
