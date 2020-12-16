@@ -6,10 +6,10 @@ public class ColorIterator {
 
     public static Color next(Color color){
         if(color.equals(Color.RED)){
-            return Color.GREEN;
-        }else if(color.equals(Color.GREEN)){
             return Color.BLUE;
         }else if(color.equals(Color.BLUE)){
+            return Color.GREEN;
+        }else if(color.equals(Color.GREEN)){
             return Color.YELLOW;
         }
         return Color.RED;

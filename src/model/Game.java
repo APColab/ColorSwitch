@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import menupages.MainMenu;
@@ -29,9 +30,9 @@ public class Game{
     private GameView gameView;
     private final float HEIGHT = 800;
     private final float WIDTH = 600;
-    private boolean isGameStarted;
     private GameLoop gameLoop;
     private LongProperty score;
+    private GameState GAME_STATE;
     private List<Obstacle> obstacleList;
     private List<Collectable> collectableList;
 
@@ -40,6 +41,7 @@ public class Game{
         obstacleList = new ArrayList<>();
         collectableList = new ArrayList<>();
         score = new SimpleLongProperty(0);
+        GAME_STATE = GameState.GAME_NOTSTARTED;
         initializeSprites();
         addEventHandlers();
         setBindings();
@@ -58,21 +60,29 @@ public class Game{
         gameView.getGameStage().addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                if(!isGameStarted){
-                    isGameStarted = true;
+                if(keyEvent.getCode()== KeyCode.SPACE) {
+                    if (GAME_STATE==GameState.GAME_NOTSTARTED) {
+                        GAME_STATE = GameState.GAME_RUNNING;
+                        gameLoop.start();
+                    }
+                    ball.goUp();
+                }else if(keyEvent.getCode()== KeyCode.P && GAME_STATE==GameState.GAME_RUNNING){
+                    GAME_STATE = GameState.GAME_PAUSED;
+                    pause();
+                }else if(keyEvent.getCode()== KeyCode.R && GAME_STATE==GameState.GAME_PAUSED){
+                    GAME_STATE = GameState.GAME_RUNNING;
                     gameLoop.start();
                 }
-                ball.goUp();
             }
         });
     }
 
     private void initialiseObstacles()
     {
-        addObstacles(0,0);
-        addObstacles(0,1);
-        addObstacles(1,2);
-        addObstacles(1,3);
+        addObstacles(0,0,false);
+        addObstacles(0,1,false);
+        addObstacles(1,2,false);
+        addObstacles(1,3,false);
     }
 
 
@@ -103,18 +113,18 @@ public class Game{
         }
     }
 
-    private void addObstacles(int obstaclePaneIndex, int index)
+    private void addObstacles(int obstaclePaneIndex, int index,boolean flag)
     {
         Random rand = new Random();
         int n = rand.nextInt(5);
         Obstacle o;
         switch (n) {
             case 0 -> {
-                o = new DoubleCircleObstacle(0, 0, ColorIterator.nextN(ball.getBallColor(),index+1));
+                o = new DoubleCircleObstacle(0, 0, ColorIterator.nextN(ball.getBallColor(),index));
                 o.setPos_X(WIDTH / 2 - o.getWidth() / 2);
             }
             case 1 -> {
-                o = new TriangleObstacle(0, 0, ColorIterator.nextN(ball.getBallColor(),index+1));
+                o = new TriangleObstacle(0, 0, ColorIterator.nextN(ball.getBallColor(),index));
                 o.setPos_X(WIDTH / 2 - ((TriangleObstacle) o).getCenterToVertex() + 55);
             }
             case 2 -> {
@@ -130,11 +140,18 @@ public class Game{
                 o.setPos_X(WIDTH / 2 - ((CircularObstacle) o).getRadius());
             }
         }
-        if(index%2==0){
-            o.setPos_Y(600);
-        }
-        else{
-            o.setPos_Y(200);
+        if (!flag) {
+            if (index % 2 == 0) {
+                o.setPos_Y(600);
+            } else {
+                o.setPos_Y(200);
+            }
+        }else{
+            if (index % 2 != 0) {
+                o.setPos_Y(600);
+            } else {
+                o.setPos_Y(200);
+            }
         }
         gameView.getObstaclePane()[obstaclePaneIndex].getChildren().add(o.getObstacleView());
         addCollectables(o,index+1);
@@ -176,8 +193,8 @@ public class Game{
                     removeObstacles(0);
                     removeCollectables(0);
                     //if(getObstacleList().size()<2)
-                    addObstacles(0,2);
-                    addObstacles(0,3);
+                    addObstacles(0,1,true);
+                    addObstacles(0,2,true);
                 }
                 if(gameView.getObstaclePane()[1].getLayoutY()>=HEIGHT){
                     //addObstacles(1);
@@ -185,8 +202,8 @@ public class Game{
                     removeObstacles(1);
                     removeCollectables(1);
                     //if(getObstacleList().size()<2)
-                    addObstacles(1,2);
-                    addObstacles(1,3);
+                    addObstacles(1,1,true);
+                    addObstacles(1,2,true);
 
                    //addObstacles(1,0);
 
@@ -197,7 +214,6 @@ public class Game{
         }
     }
     private void initializeSprites(){
-        isGameStarted = false;
         this.ball = new Ball();
         ball.setPos_X(WIDTH/2);
         ball.setPos_Y(HEIGHT-3*ball.getRADIUS());
@@ -220,6 +236,11 @@ public class Game{
                 c.handleCollision();
             }
         }
+    }
+
+
+    public void pause(){
+        gameLoop.stop();
     }
 
     public Ball getBall() {
