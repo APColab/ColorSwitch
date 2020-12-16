@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -97,12 +98,13 @@ public class GameView {
 
     public void buttonPressed(GameButton button, char type)
     {
-        button.setOnAction(new EventHandler<ActionEvent>() {
+        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(MouseEvent event) {
                 if(type=='p')
                 {
-                    game.pause(game);
+                    if(game.getGAME_STATE()== GameState.GAME_RUNNING)
+                        game.pause(game);
                 }
                 else
                     System.out.println("Pressed Save");
