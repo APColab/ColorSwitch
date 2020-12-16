@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.util.converter.NumberStringConverter;
@@ -24,9 +25,9 @@ public class Game{
     private GameView gameView;
     private final float HEIGHT = 800;
     private final float WIDTH = 600;
-    private boolean isGameStarted;
     private GameLoop gameLoop;
     private LongProperty score;
+    private GameState GAME_STATE;
     private List<Obstacle> obstacleList;
     private List<Collectable> collectableList;
 
@@ -35,6 +36,7 @@ public class Game{
         obstacleList = new ArrayList<>();
         collectableList = new ArrayList<>();
         score = new SimpleLongProperty(0);
+        GAME_STATE = GameState.GAME_NOTSTARTED;
         initializeSprites();
         addEventHandlers();
         setBindings();
@@ -53,11 +55,19 @@ public class Game{
         gameView.getGameStage().addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                if(!isGameStarted){
-                    isGameStarted = true;
+                if(keyEvent.getCode()== KeyCode.SPACE) {
+                    if (GAME_STATE==GameState.GAME_NOTSTARTED) {
+                        GAME_STATE = GameState.GAME_RUNNING;
+                        gameLoop.start();
+                    }
+                    ball.goUp();
+                }else if(keyEvent.getCode()== KeyCode.P && GAME_STATE==GameState.GAME_RUNNING){
+                    GAME_STATE = GameState.GAME_PAUSED;
+                    pause();
+                }else if(keyEvent.getCode()== KeyCode.R && GAME_STATE==GameState.GAME_PAUSED){
+                    GAME_STATE = GameState.GAME_RUNNING;
                     gameLoop.start();
                 }
-                ball.goUp();
             }
         });
     }
@@ -200,7 +210,6 @@ public class Game{
         }
     }
     private void initializeSprites(){
-        isGameStarted = false;
         this.ball = new Ball();
         ball.setPos_X(WIDTH/2);
         ball.setPos_Y(HEIGHT-3*ball.getRADIUS());
@@ -223,6 +232,11 @@ public class Game{
                 c.handleCollision();
             }
         }
+    }
+
+
+    public void pause(){
+        gameLoop.stop();
     }
 
     public Ball getBall() {
