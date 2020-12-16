@@ -106,11 +106,11 @@ public class Game{
         Obstacle o;
         switch (n) {
             case 0 -> {
-                o = new DoubleCircleObstacle(0, 0, ColorIterator.nextN(ball.getBallColor(),index+1));
+                o = new DoubleCircleObstacle(0, 0, ColorIterator.nextN(ball.getBallColor(),index));
                 o.setPos_X(WIDTH / 2 - o.getWidth() / 2);
             }
             case 1 -> {
-                o = new TriangleObstacle(0, 0, ColorIterator.nextN(ball.getBallColor(),index+1));
+                o = new TriangleObstacle(0, 0, ColorIterator.nextN(ball.getBallColor(),index));
                 o.setPos_X(WIDTH / 2 - ((TriangleObstacle) o).getCenterToVertex() + 55);
             }
             case 2 -> {
