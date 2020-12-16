@@ -6,11 +6,23 @@ import model.Game;
 //make a subpane for this
 public class PauseMenu
 {
-    Game game;
+    private Game game;
+    private PauseMenu pausemenu;
+    private PauseMenuView pmv;
     public PauseMenu(Game _game)
     {
-        PauseMenuView pmv = new PauseMenuView(_game);
+        pmv = new PauseMenuView();
         game = _game;
+    }
+
+    public void setMenu(PauseMenu p)
+    {
+        pausemenu=p;
+        pmv.setPauseMenu(p);
+    }
+
+    public PauseMenu getPausemenu() {
+        return pausemenu;
     }
 
     public Game getGame()

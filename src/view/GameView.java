@@ -1,11 +1,14 @@
 package view;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import menupages.GameButton;
+import menupages.MainMenu;
 import menupages.PauseMenu;
 import menupages.PauseMenuView;
 import model.*;
@@ -30,47 +33,18 @@ public class GameView {
         this.game = game;
         initializeStage();
         gameStage.setResizable(false);
-        placePause();
+        gameStage.centerOnScreen();
 
-      //  needToDeleteThisAndDoThisTheProperWay();
     }
 
-    private void needToDeleteThisAndDoThisTheProperWay() {
-        for(int i=0;i<2;i++){
-            for(int j=0;j<2;j++){
-                if(j==1){
-                    CircularObstacle c = new CircularObstacle();
-                    c.setPos_X(WIDTH/2-c.getRadius());
-                    c.setPos_Y(j*4*c.getRadius());
-                    obstaclePane[i].getChildren().add(c.getObstacleView());
-                    Star s = new Star(game,c);
-                    obstaclePane[i].getChildren().add(s.getStarView());
-                    ColorSwitch cs = new ColorSwitch(game,c);
-                    obstaclePane[i].getChildren().add(cs.getColorSwitchView());
-                    game.getObstacleList().add(c);
-                    game.getCollectableList().add(s);
-                    game.getCollectableList().add(cs);
-                }
-                else {
-                    DoubleCircleObstacle c = new DoubleCircleObstacle(0,0,Color.BLUE);
-                    c.setPos_X(WIDTH / 2-c.getWidth()/2);
-                    c.setPos_Y(j * 4 * c.getHeight());
-                    obstaclePane[i].getChildren().add(c.getObstacleView());
-                    Star s = new Star(game,c);
-                    obstaclePane[i].getChildren().add(s.getStarView());
-                    ColorSwitch cs = new ColorSwitch(game,c);
-                    obstaclePane[i].getChildren().add(cs.getColorSwitchView());
-                    game.getObstacleList().add(c);
-                    game.getCollectableList().add(s);
-                    game.getCollectableList().add(cs);
-                }
 
-            }
-        }
-//        RectangularObstacle rc = new RectangularObstacle(400,200);
-//        obstaclePane[0].getChildren().add(rc.getRectangularObstacleView());
+    public ScoreView getScoreView() {
+        return scoreView;
     }
 
+    public Pane getGamePane() {
+        return gamePane;
+    }
 
     public void initializeStage(){
         this.gamePane = new Pane();
@@ -105,29 +79,35 @@ public class GameView {
         b.setLayoutY(20);
         b.setPrefWidth(80);
         b.setPrefHeight(45);
-        //b.setMaxWidth(80);
-        //b.setMaxHeight(80);
         gamePane.getChildren().add(b);
+        buttonPressed(b, 'p');
+        //pressedPause();
+
 
         GameButton b1 = new GameButton("Save", "-fx-background-color: transparent; -fx-background-image: url('/resources/red_button1.png')", "-fx-background-color: transparent; -fx-background-image: url('/resources/red_button2.png')", 12);
         b1.setLayoutX(WIDTH-100);
         b1.setLayoutY(75);
         b1.setPrefWidth(80);
         b1.setPrefHeight(45);
-        //b.setMaxWidth(80);
-        //b.setMaxHeight(80);
         gamePane.getChildren().add(b1);
+        buttonPressed(b1,'s');
         gamePane.requestFocus();
         gameStage.setScene(gameScene);
     }
 
-    public void placePause()
+    public void buttonPressed(GameButton button, char type)
     {
-       /* PauseMenu p = new PauseMenu(game);
-        PauseMenuView pmv = new PauseMenuView(game);
-        pmv.setLayoutY(200);
-        pmv.setLayoutX(40);
-        gamePane.getChildren().add(pmv);*/
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(type=='p')
+                {
+                    game.pause(game);
+                }
+                else
+                    System.out.println("Pressed Save");
+            }
+        });
     }
 
     public AnchorPane[] getObstaclePane() {

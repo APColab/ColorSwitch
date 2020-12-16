@@ -48,6 +48,7 @@ public class MainMenuView
         menuStage = new Stage();
         menuStage.setScene(menuScene);
         menuStage.setResizable(false);
+        menuStage.centerOnScreen();
         createButtons();
         createName();
         addRocket();
@@ -89,6 +90,7 @@ public class MainMenuView
             public void handle(ActionEvent event) {
                 getMainmenu().newGame();
                 menuStage.hide();
+                menuPane.getChildren().clear();
             }
         });
     }

@@ -71,6 +71,6 @@ public class Star extends Collectable{
 
     @Override
     public void handleCollision() {
-
+        getGame().setScore(getGame().getScore()+1);
     }
 }
