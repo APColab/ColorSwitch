@@ -3,16 +3,24 @@ package model;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.scene.paint.Color;
+import view.CrossObstacleView;
 import view.DoubleCircleObstacleView;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serial;
+
 public class DoubleCircleObstacle extends Obstacle{
-    private final CircularObstacle outer;
-    private FloatProperty innerRadius;
+    private CircularObstacle outer;
+    private transient FloatProperty innerRadius;
+    private transient Color doubleCircleColor;
 
     public DoubleCircleObstacle(float pos_x, float pos_y, Color color){
         this.outer = new CircularObstacle(pos_x,pos_y);
         this.setPos_X(pos_x);
         this.setPos_Y(pos_y);
+        this.doubleCircleColor = color;
         this.innerRadius = new SimpleFloatProperty(outer.getRadius()-15);
         setObstacleView(new DoubleCircleObstacleView(this, color));
         setBindings();
@@ -32,6 +40,29 @@ public class DoubleCircleObstacle extends Obstacle{
 
     public void setInnerRadius(float innerRadius) {
         this.innerRadius.set(innerRadius);
+    }
+
+    @Serial
+    private void writeObject(ObjectOutputStream ous) throws IOException {
+        ous.defaultWriteObject();
+        ous.writeFloat(getPos_X());
+        ous.writeFloat(getPos_Y());
+        ous.writeFloat(getInnerRadius());
+        ous.writeDouble(doubleCircleColor.getRed());
+        ous.writeDouble(doubleCircleColor.getGreen());
+        ous.writeDouble(doubleCircleColor.getBlue());
+        ous.writeDouble(doubleCircleColor.getOpacity());
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream ois) throws ClassNotFoundException,IOException{
+        ois.defaultReadObject();
+        this.setPos_X(ois.readFloat());
+        this.setPos_Y(ois.readFloat());
+        this.innerRadius = new SimpleFloatProperty(ois.readFloat());
+        this.doubleCircleColor = Color.color(ois.readDouble(),ois.readDouble(),ois.readDouble(),ois.readDouble());
+        setObstacleView(new DoubleCircleObstacleView(this,doubleCircleColor));
+        setBindings();
     }
 
     @Override
