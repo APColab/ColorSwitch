@@ -13,7 +13,7 @@ public abstract class Obstacle implements Collidable {
     private FloatProperty pos_Y;
     private final float height = 200;
     private final float width = 200;
-    private final float stroke = 10.0f;
+    private final float stroke = 11.0f;
     private ObstacleView obstacleView;
 
     public float getStroke() {

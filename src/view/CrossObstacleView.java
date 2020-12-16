@@ -17,7 +17,7 @@ public class CrossObstacleView extends ObstacleView{
         getShapeList().add(new Line(c.getWidth()/2,c.getHeight()/2,c.getWidth()/2,c.getHeight()));
         getShapeList().add(new Line(c.getWidth()/2,c.getHeight()/2,0,c.getHeight()/2));
         for(int i=0;i<4;i++){
-            getShapeList().get(i).setStrokeWidth(c.getStroke());
+            getShapeList().get(i).setStrokeWidth(c.getStroke()+3);
         }
         getShapeList().get(0).setStroke(Color.RED);
         getShapeList().get(1).setStroke(Color.BLUE);

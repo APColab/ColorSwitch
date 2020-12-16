@@ -4,7 +4,7 @@ import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import view.RectangularObstacleView;
 
-public class RectangularObstacle extends Obstacle {
+public class   RectangularObstacle extends Obstacle {
     private FloatProperty length;
     private FloatProperty breadth;
 
