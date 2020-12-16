@@ -21,7 +21,6 @@ public class Game{
     public Game(){
         gameLoop = new GameLoop();
         initializeSprites();
-        setBindings();
         addEventHandlers();
     }
 
@@ -42,25 +41,6 @@ public class Game{
         });
     }
 
-    private void setBindings(){
-        ball.speedProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                if(ball.getPos_Y()<=ball.getMaxHeight()+5){
-                    if((float)t1<=0f){
-                        gameView.getObstaclePane()[0].setLayoutY(gameView.getObstaclePane()[0].getLayoutY()-(float)t1);
-                        gameView.getObstaclePane()[1].setLayoutY(gameView.getObstaclePane()[1].getLayoutY()-(float)t1);
-                    }
-                    if(gameView.getObstaclePane()[0].getLayoutY()>=HEIGHT){
-                        gameView.getObstaclePane()[0].setLayoutY(gameView.getObstaclePane()[1].getLayoutY()-HEIGHT);
-                    }
-                    if(gameView.getObstaclePane()[1].getLayoutY()>=HEIGHT){
-                        gameView.getObstaclePane()[1].setLayoutY(gameView.getObstaclePane()[0].getLayoutY()-HEIGHT);
-                    }
-                }
-            }
-        });
-    }
 
 
     class GameLoop extends AnimationTimer {
@@ -79,6 +59,15 @@ public class Game{
         if(ball.getPos_Y()<=ball.getMaxHeight()){
             if(ball.getSpeed()>0){
                 ball.goDown();
+            }else{
+                gameView.getObstaclePane()[0].setLayoutY(gameView.getObstaclePane()[0].getLayoutY()-ball.getSpeed());
+                gameView.getObstaclePane()[1].setLayoutY(gameView.getObstaclePane()[1].getLayoutY()-ball.getSpeed());
+                if(gameView.getObstaclePane()[0].getLayoutY()>=HEIGHT){
+                    gameView.getObstaclePane()[0].setLayoutY(gameView.getObstaclePane()[1].getLayoutY()-HEIGHT);
+                }
+                if(gameView.getObstaclePane()[1].getLayoutY()>=HEIGHT){
+                    gameView.getObstaclePane()[1].setLayoutY(gameView.getObstaclePane()[0].getLayoutY()-HEIGHT);
+                }
             }
         }else{
             ball.goDown();
