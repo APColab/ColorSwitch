@@ -56,7 +56,7 @@ public class Game{
     {
         CircularObstacle c4 = new CircularObstacle();
         c4.setPos_X(WIDTH/2-c4.getRadius());
-        c4.setPos_Y(c4.getRadius());
+        c4.setPos_Y(5*c4.getRadius());
         gameView.getObstaclePane()[0].getChildren().add(c4.getObstacleView());
         Star s4 = new Star(this,c4);
         gameView.getObstaclePane()[0].getChildren().add(s4.getStarView());
@@ -78,8 +78,21 @@ public class Game{
         this.getCollectableList().add(s5);
         this.getCollectableList().add(cs5);
 
+        CircularObstacle c6 = new CircularObstacle();
+        c6.setPos_X(WIDTH/2-c6.getRadius());
+        c6.setPos_Y(c6.getRadius());
+        gameView.getObstaclePane()[0].getChildren().add(c6.getObstacleView());
+        Star s6 = new Star(this,c6);
+        gameView.getObstaclePane()[0].getChildren().add(s6.getStarView());
+        ColorSwitch cs6 = new ColorSwitch(this,c6);
+        gameView.getObstaclePane()[0].getChildren().add(cs6.getColorSwitchView());
+        this.getObstacleList().add(c6);
+        this.getCollectableList().add(s6);
+        this.getCollectableList().add(cs6);
+
         getObstacleList().add(c4);
         getObstacleList().add(c5);
+        getObstacleList().add(c6);
     }
 
 
@@ -98,7 +111,7 @@ public class Game{
     private void addObstacles(int index)
     {
         Random rand = new Random();
-        int n = rand.nextInt(6);
+        int n = rand.nextInt(5);
         switch(n)
         {
             case 0: //double c
