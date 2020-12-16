@@ -37,8 +37,8 @@ public class PauseMenuView extends SubScene
             pauseMenu = new PauseMenu(game);
             pausepane = (AnchorPane)this.getRoot();
             pausepane.setBackground(new Background((bgimg)));
-            addButtons();
-            addLabel();
+           // addButtons();
+           // addLabel();
            // pausepane.setEffect(dropShadow);
 
         }
@@ -51,12 +51,6 @@ public class PauseMenuView extends SubScene
         b.setLayoutY(180);
         b.setPrefWidth(190); //190
         b.setPrefHeight(45);
-        b.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                pauseMenu.resumeGame();
-            }
-        });
         pausepane.getChildren().add(b);
 
         GameButton b1 = new GameButton("MAIN MENU", "-fx-background-color: transparent; -fx-background-image: url('/resources/red_button1.png')", "-fx-background-color: transparent; -fx-background-image: url('/resources/red_button2.png')", 15);
@@ -64,13 +58,6 @@ public class PauseMenuView extends SubScene
         b1.setLayoutY(180);
         b1.setPrefWidth(190);
         b1.setPrefHeight(45);
-        b1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                MainMenu mm = new MainMenu();
-                pauseMenu.getGame().getGameView().getGameStage().hide();
-            }
-        });
         pausepane.getChildren().add(b1);
     }
 

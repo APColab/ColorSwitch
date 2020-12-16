@@ -123,11 +123,11 @@ public class GameView {
 
     public void placePause()
     {
-        PauseMenu p = new PauseMenu(game);
+       /* PauseMenu p = new PauseMenu(game);
         PauseMenuView pmv = new PauseMenuView(game);
         pmv.setLayoutY(200);
         pmv.setLayoutX(40);
-        gamePane.getChildren().add(pmv);
+        gamePane.getChildren().add(pmv);*/
     }
 
     public AnchorPane[] getObstaclePane() {
