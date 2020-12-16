@@ -64,10 +64,10 @@ public class Game{
 
     private void initialiseObstacles()
     {
-        addObstacles(0,0);
-        addObstacles(0,1);
-        addObstacles(1,2);
-        addObstacles(1,3);
+        addObstacles(0,0,false);
+        addObstacles(0,1,false);
+        addObstacles(1,2,false);
+        addObstacles(1,3,false);
     }
 
 
@@ -99,7 +99,7 @@ public class Game{
         }
     }
 
-    private void addObstacles(int obstaclePaneIndex, int index)
+    private void addObstacles(int obstaclePaneIndex, int index,boolean flag)
     {
         Random rand = new Random();
         int n = rand.nextInt(5);
@@ -126,11 +126,18 @@ public class Game{
                 o.setPos_X(WIDTH / 2 - ((CircularObstacle) o).getRadius());
             }
         }
-        if(index%2==0){
-            o.setPos_Y(600);
-        }
-        else{
-            o.setPos_Y(200);
+        if (!flag) {
+            if (index % 2 == 0) {
+                o.setPos_Y(600);
+            } else {
+                o.setPos_Y(200);
+            }
+        }else{
+            if (index % 2 != 0) {
+                o.setPos_Y(600);
+            } else {
+                o.setPos_Y(200);
+            }
         }
         gameView.getObstaclePane()[obstaclePaneIndex].getChildren().add(o.getObstacleView());
         addCollectables(o,index+1);
@@ -172,8 +179,8 @@ public class Game{
                     removeObstacles(0);
                     removeCollectables(0);
                     //if(getObstacleList().size()<2)
-                    addObstacles(0,2);
-                    addObstacles(0,3);
+                    addObstacles(0,1,true);
+                    addObstacles(0,2,true);
                 }
                 if(gameView.getObstaclePane()[1].getLayoutY()>=HEIGHT){
                     //addObstacles(1);
@@ -181,8 +188,8 @@ public class Game{
                     removeObstacles(1);
                     removeCollectables(1);
                     //if(getObstacleList().size()<2)
-                    addObstacles(1,2);
-                    addObstacles(1,3);
+                    addObstacles(1,1,true);
+                    addObstacles(1,2,true);
 
                    //addObstacles(1,0);
 
