@@ -2,6 +2,7 @@ package menupages;
 
 import model.Game;
 import model.GameState;
+import model.Obstacle;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -31,6 +32,13 @@ public class OnCollisionMenu {
             }
             this.game.setNumberOfRevivals(nor+1);
             oncv.getOnCollisionStage().hide();
+            for(Obstacle o:game.getObstacleList())
+            {
+                if(game.getBall().isColliding(o))
+                {
+                    game.getBall().setPos_Y(game.getBall().getPos_Y()+100);
+                }
+            }
             game.setGAME_STATE(GameState.GAME_NOTSTARTED);
             game.getGameView().getGameStage().show();
         }

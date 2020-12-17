@@ -102,9 +102,13 @@ public class GameView {
                 {
                     if(game.getGAME_STATE()== GameState.GAME_RUNNING)
                         game.pause();
+                    else
+                        game.getGameView().getGamePane().requestFocus();
                 }
                 else
+                {
                     System.out.println("Pressed Save");
+                }
             }
         });
     }

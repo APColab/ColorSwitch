@@ -54,7 +54,6 @@ public class Game implements Serializable {
         initialiseObstacles();
     }
 
-
     @Serial
     private void writeObject(ObjectOutputStream ous) throws IOException {
         ous.defaultWriteObject();
@@ -336,7 +335,8 @@ public class Game implements Serializable {
                 ((DoubleCircleObstacle)(o)).getOuter().getObstacleView().getTransition().pause();
             }
         }
-        setGAME_STATE(GameState.GAME_PAUSED);
+        if(getGAME_STATE()!=GameState.GAME_NOTSTARTED)
+            setGAME_STATE(GameState.GAME_PAUSED);
     }
 
     public void resumeGame()
@@ -349,6 +349,19 @@ public class Game implements Serializable {
         {
             (iter.next()).getObstacleView().getTransition().play();
         }
+    }
+
+    public void saveGame() {
+        try
+        {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("/src/savedGames"));
+            writeObject(objectOutputStream);
+        }
+        catch(Exception e)
+        {
+            System.out.println("Write error");
+        }
+
     }
 
     public Ball getBall() {
@@ -414,4 +427,5 @@ public class Game implements Serializable {
     public float getWIDTH() {
         return WIDTH;
     }
+
 }

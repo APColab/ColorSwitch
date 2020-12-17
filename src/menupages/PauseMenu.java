@@ -1,6 +1,8 @@
 package menupages;
 
 import model.Game;
+import model.GameState;
+import model.Obstacle;
 
 
 //make a subpane for this
@@ -37,7 +39,6 @@ public class PauseMenu
 
     public void resumeGame()
     {
-        //resume paused game
         game.resumeGame();
         game.getGameView().getGamePane().requestFocus();
         return;
