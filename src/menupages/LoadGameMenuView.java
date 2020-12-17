@@ -31,9 +31,9 @@ public class LoadGameMenuView
     private Stage loadStage;
     private Scene loadScene;
 
-    ArrayList<File> gamesList;
+    ArrayList<Game> gamesList;
 
-    public LoadGameMenuView(ArrayList<File> games)
+    public LoadGameMenuView(ArrayList<Game> games)
     {
         gamesList = games;
         loadPane = new AnchorPane();
