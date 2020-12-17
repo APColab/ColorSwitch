@@ -11,18 +11,13 @@ import java.util.Arrays;
 
 public class SavedGames
 {
-    File folder = new File("./src/savedGames");
-    public static ArrayList<File> savedgames;
-
-    public SavedGames()
-    {
-        savedgames = new ArrayList<>(Arrays.asList(folder.listFiles()));
-    }
 
     public static void loadSavedGames()
     {
         System.out.println("load");
+        ArrayList<File> savedgames;
         ArrayList<Game> games = new ArrayList<>();
+        savedgames = new ArrayList<>(Arrays.asList(new File("./src/savedGames").listFiles()));
         for(File f:savedgames){
             try {
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
@@ -36,7 +31,7 @@ public class SavedGames
             }
 
         }
-
+        LoadGameMenuView load = new LoadGameMenuView();
     }
 
     public static void addSavedGames()
@@ -49,11 +44,5 @@ public class SavedGames
 
     }
 
-    public static ArrayList<File> getSavedgames() {
-        return savedgames;
-    }
 
-    public static void setSavedgames(ArrayList<File> savedgames) {
-        SavedGames.savedgames = savedgames;
-    }
 }

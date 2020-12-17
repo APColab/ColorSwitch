@@ -110,6 +110,7 @@ public class GameView {
                 else
                 {
                     game.saveGame();
+                    game.getGameView().getGamePane().requestFocus();
                     System.out.println("Pressed Save");
                 }
             }
