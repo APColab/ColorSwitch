@@ -19,6 +19,9 @@ import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.input.MouseButton;
+import model.CustomObstacle;
+import model.CustomObstacleLoader;
+import model.ObstacleCreator;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -72,7 +75,7 @@ public class MainMenuView
 
     private void addMainMenuButton(GameButton button, int n)
     {
-        button.setLayoutY(MENU_BUTTON_START_Y + n*100);
+        button.setLayoutY(MENU_BUTTON_START_Y + n*90);
         button.setLayoutX(MENU_BUTTON_START_X);
         mainMenuButtons.add(button);
         menuPane.getChildren().add(button);
@@ -119,7 +122,7 @@ public class MainMenuView
         System.out.println(idlePath);
         String pressedPath = BUTTON_PATH + "blue_button2.png');";
         GameButton exitButton =  new GameButton("EXIT GAME", idlePath, pressedPath, 19);
-        addMainMenuButton(exitButton, 3);
+        addMainMenuButton(exitButton, 4);
         exitButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -129,15 +132,31 @@ public class MainMenuView
         });
     }
 
+    private void obstacleCreatorButton()
+    {
+        String idlePath = BUTTON_PATH + "yellow_button1.png');";
+        System.out.println(idlePath);
+        String pressedPath = BUTTON_PATH + "yellow_button2.png');";
+        GameButton exitButton =  new GameButton("CREATE OBSTACLES", idlePath, pressedPath, 14);
+        addMainMenuButton(exitButton, 3);
+        exitButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                ObstacleCreator obstacleCreator = new ObstacleCreator();
+                menuStage.hide();
+                obstacleCreator.getMainStage().show();
+            }
+        });
+    }
+
     public void createButtons()
     {
         startButton();
         loadButton();
         exitButton();
+        obstacleCreatorButton();
 
     }
-
-    //public void rocketTransition(ImageView img, TranslateTransition )
 
     public void addRocket()
     {

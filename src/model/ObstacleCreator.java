@@ -203,4 +203,7 @@ public class ObstacleCreator {
 
     }
 
+    public Stage getMainStage() {
+        return mainStage;
+    }
 }

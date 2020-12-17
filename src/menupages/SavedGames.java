@@ -19,7 +19,7 @@ public class SavedGames
     public static void loadSavedGames()
     {
         System.out.println("load");
-        LoadGameMenuView load = new LoadGameMenuView(savedgames);
+        LoadGameMenuView load = new LoadGameMenuView();
     }
 
     public static void addSavedGames()
