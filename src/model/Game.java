@@ -406,4 +406,12 @@ public class Game implements Serializable {
     public void setNumberOfRevivals(int numberOfRevivals) {
         this.numberOfRevivals = numberOfRevivals;
     }
+
+    public float getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public float getWIDTH() {
+        return WIDTH;
+    }
 }
