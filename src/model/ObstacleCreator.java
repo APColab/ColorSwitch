@@ -10,6 +10,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import menupages.MainMenu;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,10 +31,11 @@ public class ObstacleCreator {
 
 
     private Button resetButton;
+    private Button goBackButton;
 
     private int step = 0;
 
-    private final float HEIGHT = 300;
+    private final float HEIGHT = 350;
     private final float WIDTH = 300;
 
     public ObstacleCreator(){
@@ -47,7 +49,7 @@ public class ObstacleCreator {
         drawPane.setMinHeight(200);
         drawPane.setMinWidth(200);
         drawPane.setLayoutX(50);
-        drawPane.setLayoutY(70);
+        drawPane.setLayoutY(100);
         drawPane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,new BorderWidths(4))));
         mainPane.getChildren().add(drawPane);
 
@@ -73,7 +75,12 @@ public class ObstacleCreator {
 
         resetButton = new Button("Reset");
         resetButton.setLayoutX(50);
-        resetButton.setLayoutY(280);
+        resetButton.setLayoutY(305);
+
+        goBackButton = new Button("Go to Main Menu");
+        goBackButton.setLayoutX(50);
+        goBackButton.setLayoutY(20);
+        mainPane.getChildren().add(goBackButton);
 
         drawPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -125,7 +132,7 @@ public class ObstacleCreator {
                         step++;
                     }
                     case 7->{
-                        text.setText("All done. Click Reset button to reset and click in the box to save");
+                        text.setText("All done. Click Reset button to reset\n and click in the box to save");
                         yellow.setEndX(mouseEvent.getX());
                         yellow.setEndY(mouseEvent.getY());
                         step++;
@@ -183,6 +190,14 @@ public class ObstacleCreator {
                 drawPane.getChildren().removeAll(red,green,blue,yellow);
                 mainPane.getChildren().remove(resetButton);
                 text.setText("Click 1st point for red line");
+            }
+        });
+
+        goBackButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                mainStage.close();
+                new MainMenu();
             }
         });
 
