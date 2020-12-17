@@ -241,14 +241,24 @@ public class Game{
         PauseMenu p = new PauseMenu(game);
         p.setMenu(p);
         gameLoop.stop();
+        Iterator<Obstacle> iter = obstacleList.listIterator();
+        while(iter.hasNext())
+        {
+            (iter.next()).getObstacleView().getTransition().pause();
+        }
         setGAME_STATE(GameState.GAME_PAUSED);
     }
 
     public void resumeGame()
     {
-        for(int i=0;i<300000000;i++);
+        for(int i=0;i<500000000;i++);
         getGameLoop().start();
         setGAME_STATE(GameState.GAME_RUNNING);
+        Iterator<Obstacle> iter = obstacleList.listIterator();
+        while(iter.hasNext())
+        {
+            (iter.next()).getObstacleView().getTransition().play();
+        }
     }
 
     public Ball getBall() {
