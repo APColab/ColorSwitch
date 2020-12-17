@@ -1,6 +1,7 @@
 package menupages;
 
 import model.Game;
+import model.GameState;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,12 +29,9 @@ public class OnCollisionMenu {
             }else{
                 game.setScore(game.getScore()-requiredForRevival);
             }
-            Long score = game.getScore();
-            this.game.getGameView().getGameStage().close();
-            this.game = new Game();
-            this.game.setScore(score);
             this.game.setNumberOfRevivals(nor+1);
             oncv.getOnCollisionStage().hide();
+            game.setGAME_STATE(GameState.GAME_NOTSTARTED);
             game.getGameView().getGameStage().show();
         }
 
