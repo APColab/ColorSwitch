@@ -5,6 +5,7 @@ import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,28 +13,30 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import javafx.util.Duration;
 import menupages.*;
 
 import javafx.util.converter.NumberStringConverter;
 
+import view.CircularObstacleView;
 import view.GameView;
 import view.ObstacleView;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.io.*;
+import java.util.*;
 
-public class Game{
+public class Game implements Serializable {
     private Ball ball;
-    private GameView gameView;
+    private transient GameView gameView;
     private final float HEIGHT = 800;
     private final float WIDTH = 600;
-    private GameLoop gameLoop;
-    private LongProperty score;
-    private GameState GAME_STATE;
+    private transient GameLoop gameLoop;
+    private transient LongProperty score;
+    private transient GameState GAME_STATE;
     private List<Obstacle> obstacleList;
     private List<Collectable> collectableList;
+    private transient CollectedStars collectedStars;
+    private UUID gameID;
 
     public Game(){
         gameLoop = new GameLoop();
@@ -41,12 +44,60 @@ public class Game{
         collectableList = new ArrayList<>();
         score = new SimpleLongProperty(0);
         GAME_STATE = GameState.GAME_NOTSTARTED;
+        collectedStars = new CollectedStars();
+        gameID = UUID.randomUUID();
         initializeSprites();
         addEventHandlers();
         setBindings();
         initialiseObstacles();
-
     }
+
+
+    @Serial
+    private void writeObject(ObjectOutputStream ous) throws IOException {
+        ous.defaultWriteObject();
+        ous.writeLong(score.getValue());
+        HashMap<Obstacle,Integer> hashMap = new HashMap<>();
+        HashMap<Collectable,Integer> hashMapC = new HashMap<>();
+        for(Obstacle o:obstacleList){
+            if(gameView.getObstaclePane()[0].getChildren().contains(o.getObstacleView())){
+                hashMap.put(o,0);
+            }else{
+                hashMap.put(o,1);
+            }
+        }
+        for(Collectable c:collectableList){
+            if(gameView.getObstaclePane()[0].getChildren().contains(c.getCollectableView())){
+                hashMapC.put(c,0);
+            }else{
+                hashMapC.put(c,1);
+            }
+        }
+        ous.writeObject(hashMap);
+        ous.writeObject(hashMapC);
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream ois) throws ClassNotFoundException,IOException{
+        ois.defaultReadObject();
+        gameLoop = new GameLoop();
+        score = new SimpleLongProperty(ois.readLong());
+        GAME_STATE = GameState.GAME_NOTSTARTED;
+        collectedStars = new CollectedStars();
+        gameView = new GameView(this);
+        addEventHandlers();
+        setBindings();
+        ball.setPos_Y(HEIGHT-3*ball.getRADIUS());
+        HashMap<Obstacle,Integer> hashMap = (HashMap<Obstacle, Integer>) ois.readObject();
+        for(Obstacle o:obstacleList){
+            gameView.getObstaclePane()[hashMap.get(o)].getChildren().add(o.getObstacleView());
+        }
+        HashMap<Collectable,Integer> hashMapC = (HashMap<Collectable, Integer>) ois.readObject();
+        for(Collectable c:collectableList){
+            gameView.getObstaclePane()[hashMapC.get(c)].getChildren().add(c.getCollectableView());
+        }
+    }
+
 
     private void setBindings() {
         gameView.getScoreView().textProperty().bindBidirectional(score,new NumberStringConverter());
@@ -66,9 +117,25 @@ public class Game{
                         gameLoop.start();
                     }
                     ball.goUp();
+                }else if(keyEvent.getCode()==KeyCode.S){
+                    try {
+                        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./game.sav"));
+                        sav(oos);
+                        oos.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
+    }
+
+    private void sav(ObjectOutputStream oos){
+        try {
+            oos.writeObject(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initialiseObstacles()

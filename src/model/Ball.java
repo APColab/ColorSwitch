@@ -66,6 +66,7 @@ public class Ball extends Circle implements Collidable, Serializable {
         speed = new SimpleFloatProperty(ois.readFloat());
         maxHeight = new SimpleFloatProperty(ois.readFloat());
         ballColor = Color.color(ois.readDouble(),ois.readDouble(),ois.readDouble(),ois.readDouble());
+        ballView = new BallView(this);
         setBallColor(ballColor);
         setBindings();
     }

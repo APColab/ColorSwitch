@@ -33,9 +33,6 @@ public class GameView {
     public GameView(Game game){
         this.game = game;
         initializeStage();
-        gameStage.setResizable(false);
-        gameStage.centerOnScreen();
-
     }
 
 
@@ -92,6 +89,8 @@ public class GameView {
         buttonPressed(b1,'s');
         gamePane.requestFocus();
         gameStage.setScene(gameScene);
+        gameStage.setResizable(false);
+        gameStage.centerOnScreen();
     }
 
     public void buttonPressed(GameButton button, char type)
