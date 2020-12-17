@@ -109,6 +109,7 @@ public class GameView {
                 }
                 else
                 {
+                    game.saveGame();
                     System.out.println("Pressed Save");
                 }
             }
