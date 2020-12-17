@@ -2,7 +2,9 @@ package menupages;
 
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
@@ -30,12 +32,25 @@ public class LoadGameMenuView
     private ScrollPane loadSubPane;
     private Stage loadStage;
     private Scene loadScene;
+    ToggleGroup tg = new ToggleGroup();
 
-    ArrayList<Game> gamesList;
+    ArrayList<String> gamesList;
 
-    public LoadGameMenuView(ArrayList<Game> games)
+    public LoadGameMenuView()
     {
-        gamesList = games;
+        gamesList = new ArrayList<>();
+        gamesList.add("str1");
+        gamesList.add("str2");
+        gamesList.add("str3");
+        gamesList.add("str1");
+        gamesList.add("str2");
+        gamesList.add("str3");
+        gamesList.add("str1");
+        gamesList.add("str2");
+        gamesList.add("str3");
+        gamesList.add("str1");
+        gamesList.add("str2");
+        gamesList.add("str3");
         loadPane = new AnchorPane();
         innerPane = new AnchorPane();
         loadSubPane = new ScrollPane();
@@ -54,7 +69,7 @@ public class LoadGameMenuView
         loadSubPane.setPrefSize(500, 400);
         loadSubPane.setLayoutX(50);
         loadSubPane.setLayoutY(250);
-        innerPane.setPrefSize(500, (gamesList.size()+2)*100);
+        innerPane.setPrefSize(500, (gamesList.size())*50+20);
         loadSubPane.setFitToWidth(true);
         addGames();
         loadSubPane.setContent(innerPane);
@@ -71,30 +86,33 @@ public class LoadGameMenuView
 
     public void addGames()
     {
-       /** int count=0;
-        Iterator<File> iter = gamesList.listIterator();
+       int count=0;
+        Iterator<String> iter = gamesList.listIterator();
         while(iter.hasNext())
         {
-            toText(iter.next(), count);
-        }*/
+            toRadioButton(iter.next(), count);
+            count++;
+        }
+
     }
 
-    public void toText(String s, int count)
-    {
-        Text t = new Text();
-        t.setText(s);
+    public void toRadioButton(String s, int count)  {
+        RadioButton r = new RadioButton(s);
+        r.setToggleGroup(tg);
         try
         {
-            t.setFont(Font.loadFont(new FileInputStream("src/menupages/resources/eroded.ttf"), 15));
+            r.setFont(Font.loadFont(new FileInputStream("src/menupages/resources/eroded.ttf"), 20));
+            r.setTextFill(Color.WHITE);
         }
         catch (FileNotFoundException e)
         {
-            t.setFont(Font.font("Comic Sans", 15));
+            r.setFont(Font.font("Comic Sans", 20));
+            r.setTextFill(Color.WHITE);
         }
-        t.setFill(Color.WHITE);
-        t.setLayoutX(50);
-        t.setLayoutY(100);
-        innerPane.getChildren().add(t);
+        //t.setFill(Color.WHITE);
+        r.setLayoutX(50);
+        r.setLayoutY(30+50*count);
+        innerPane.getChildren().add(r);
     }
 
     public void createLabel()
