@@ -1,8 +1,13 @@
 package menupages;
 
+import javafx.animation.Animation;
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -11,6 +16,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import model.GameState;
 
 import java.io.FileInputStream;
@@ -42,6 +48,8 @@ public class OnCollisionMenuView
         createButtons();
         createLabels();
         addBackground();
+        addCollectedStars();
+        addStar();
         onCollisionStage.show();
     }
 
@@ -52,7 +60,7 @@ public class OnCollisionMenuView
         String pressedPath = BUTTON_PATH + "green_button2.png');";
         GameButton reviveButton = new GameButton("REVIVE", idlePath, pressedPath, 19);
         reviveButton.setLayoutX(200);
-        reviveButton.setLayoutY(200);
+        reviveButton.setLayoutY(250);
         onCollisionPane.getChildren().add(reviveButton);
         reviveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -70,7 +78,7 @@ public class OnCollisionMenuView
         String pressedPath2 = BUTTON_PATH + "red_button2.png');";
         GameButton restartButton = new GameButton("RESTART", idlePath2, pressedPath2, 19);
         restartButton.setLayoutX(200);
-        restartButton.setLayoutY(300);
+        restartButton.setLayoutY(330);
         onCollisionPane.getChildren().add(restartButton);
         restartButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -89,7 +97,7 @@ public class OnCollisionMenuView
         String pressedPath1 = BUTTON_PATH + "blue_button2.png');";
         GameButton exitButton =  new GameButton("MAIN MENU", idlePath1, pressedPath1, 19);
         exitButton.setLayoutX(200);
-        exitButton.setLayoutY(400);
+        exitButton.setLayoutY(410);
         onCollisionPane.getChildren().add(exitButton);
         exitButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -104,10 +112,55 @@ public class OnCollisionMenuView
 
     }
 
+    public void addStar()
+    {
+        TranslateTransition translateTransition = new TranslateTransition();
+        translateTransition.setDuration(Duration.millis(1500));
+        Image image = new Image("/resources/star.png");
+        ImageView img = new ImageView();
+        img.setImage(image);
+        img.setFitHeight(40);
+        img.setFitWidth(40);
+        img.setPreserveRatio(true);
+        img.setLayoutY(130);
+        img.setLayoutX(275);
+        translateTransition.setNode(img);
+        translateTransition.setByY(10);
+        translateTransition.setCycleCount(Animation.INDEFINITE);
+        translateTransition.setInterpolator(Interpolator.EASE_OUT);
+        translateTransition.setAutoReverse(true);
+        translateTransition.play();
+        Group root = new Group(img);
+        onCollisionPane.getChildren().add(root);
+    }
+
+    public void addCollectedStars()
+    {
+        long totalStars = onCollisionMenu.getGame().getCollectedStars().getTotalStars()+ onCollisionMenu.getGame().getScore();
+        String str = Long.toString(totalStars);
+        Text t1 = new Text();
+        t1.setText("Total Stars: "+str);
+        try
+        {
+            t1.setFont(Font.loadFont(new FileInputStream("src/menupages/resources/eroded.ttf"), 17));
+        }
+        catch (FileNotFoundException e)
+        {
+            t1.setFont(Font.font("Comic Sans", 17));
+        }
+        t1.setFill(Color.WHITE);
+        HBox hbox = new HBox();
+        hbox.getChildren().add(t1);
+        hbox.setLayoutX(20);
+        hbox.setLayoutY(25);
+        hbox.setStyle("-fx-border-color: #ffffff;");
+        onCollisionPane.getChildren().add(hbox);
+    }
+
     public void createLabels()
     {
         Text t = new Text();
-        t.setText("Revive?");
+        t.setText("Game Over");
         try
         {
             t.setFont(Font.loadFont(new FileInputStream("src/menupages/resources/eroded.ttf"), 40));
@@ -117,9 +170,28 @@ public class OnCollisionMenuView
             t.setFont(Font.font("Comic Sans", 30));
         }
         t.setFill(Color.WHITE);
-        t.setLayoutX(200);
-        t.setLayoutY(110);
+        t.setLayoutX(185);
+        t.setLayoutY(100);
         onCollisionPane.getChildren().add(t);
+
+        int nor = onCollisionMenu.getGame().getNumberOfRevivals();
+        int requiredForRevival = (int) Math.pow(2,onCollisionMenu.getGame().getNumberOfRevivals());
+        String str = Integer.toString(requiredForRevival);
+
+        Text t1 = new Text();
+        t1.setText("Revival: "+str+" Stars");
+        try
+        {
+            t1.setFont(Font.loadFont(new FileInputStream("src/menupages/resources/eroded.ttf"), 17));
+        }
+        catch (FileNotFoundException e)
+        {
+            t1.setFont(Font.font("Comic Sans", 17));
+        }
+        t1.setFill(Color.WHITE);
+        t1.setLayoutX(225);
+        t1.setLayoutY(210);
+        onCollisionPane.getChildren().add(t1);
     }
 
     public void addBackground()

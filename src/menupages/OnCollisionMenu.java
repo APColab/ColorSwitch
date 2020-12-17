@@ -22,7 +22,7 @@ public class OnCollisionMenu {
     {
         int nor = game.getNumberOfRevivals();
         int requiredForRevival = (int) Math.pow(2,game.getNumberOfRevivals());
-        if(game.getCollectedStars().getTotalStars()+game.getScore()>requiredForRevival){
+        if(game.getCollectedStars().getTotalStars()+game.getScore()>=requiredForRevival){
             if(requiredForRevival>=game.getScore()){
                 requiredForRevival -= game.getScore();
                 game.setScore(0);
