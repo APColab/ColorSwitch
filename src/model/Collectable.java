@@ -4,9 +4,11 @@ import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.scene.image.ImageView;
 
-public abstract class Collectable implements Collidable{
-    private FloatProperty pos_X;
-    private FloatProperty pos_Y;
+import java.io.Serializable;
+
+public abstract class Collectable implements Collidable, Serializable {
+    private transient FloatProperty pos_X;
+    private transient FloatProperty pos_Y;
     private final float height = 30;
     private Game game;
     public float getPos_X() {
