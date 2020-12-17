@@ -4,6 +4,7 @@ import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Shape;
+import javafx.util.Duration;
 import view.CircularObstacleView;
 
 import java.util.ArrayList;

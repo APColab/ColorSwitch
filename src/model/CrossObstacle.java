@@ -1,6 +1,7 @@
 package model;
 
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.util.Duration;
 import view.CircularObstacleView;
 import view.CrossObstacleView;
 
@@ -25,6 +26,7 @@ public class CrossObstacle extends Obstacle{
         ous.defaultWriteObject();
         ous.writeFloat(getPos_X());
         ous.writeFloat(getPos_Y());
+        ous.writeDouble(getObstacleView().getTransition().getCurrentTime().toMillis());
     }
 
     @Serial
@@ -34,6 +36,7 @@ public class CrossObstacle extends Obstacle{
         this.setPos_Y(ois.readFloat());
         setObstacleView(new CrossObstacleView(this));
         setBindings();
+        getObstacleView().getTransition().jumpTo(Duration.millis(ois.readDouble()));
     }
 
     @Override

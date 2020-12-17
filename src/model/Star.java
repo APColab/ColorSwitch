@@ -3,13 +3,19 @@ package model;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
+import javafx.util.Duration;
+import view.CrossObstacleView;
 import view.StarView;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serial;
 import java.util.ArrayList;
 
 public class Star extends Collectable{
 
-    private StarView starView;
+    private transient StarView starView;
 
     private final String IMAGE_PATH = "resources/star.png";
 
@@ -29,6 +35,24 @@ public class Star extends Collectable{
         starView = new StarView(this);
         setbindings();
     }
+
+
+    @Serial
+    private void writeObject(ObjectOutputStream ous) throws IOException {
+        ous.defaultWriteObject();
+        ous.writeFloat(getPos_X());
+        ous.writeFloat(getPos_Y());
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream ois) throws ClassNotFoundException,IOException{
+        ois.defaultReadObject();
+        this.setPos_X(ois.readFloat());
+        this.setPos_Y(ois.readFloat());
+        starView = new StarView(this);
+        setbindings();
+    }
+
 
     public String getIMAGE_PATH() {
         return IMAGE_PATH;

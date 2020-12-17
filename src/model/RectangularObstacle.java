@@ -2,6 +2,7 @@ package model;
 
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.util.Duration;
 import view.CrossObstacleView;
 import view.RectangularObstacleView;
 
@@ -43,6 +44,7 @@ public class   RectangularObstacle extends Obstacle {
         ous.writeFloat(getPos_Y());
         ous.writeFloat(getLength());
         ous.writeFloat(getBreadth());
+        ous.writeDouble(getObstacleView().getTransition().getCurrentTime().toMillis());
     }
 
     @Serial
@@ -54,6 +56,7 @@ public class   RectangularObstacle extends Obstacle {
         this.length = new SimpleFloatProperty(ois.readFloat());
         setObstacleView(new RectangularObstacleView(this));
         setBindings();
+        getObstacleView().getTransition().jumpTo(Duration.millis(ois.readDouble()));
     }
 
 

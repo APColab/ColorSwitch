@@ -3,6 +3,7 @@ package model;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import view.CrossObstacleView;
 import view.DoubleCircleObstacleView;
 
@@ -52,6 +53,8 @@ public class DoubleCircleObstacle extends Obstacle{
         ous.writeDouble(doubleCircleColor.getGreen());
         ous.writeDouble(doubleCircleColor.getBlue());
         ous.writeDouble(doubleCircleColor.getOpacity());
+        ous.writeDouble(getObstacleView().getTransition().getCurrentTime().toMillis());
+        ous.writeDouble(outer.getObstacleView().getTransition().getCurrentTime().toMillis());
     }
 
     @Serial
@@ -63,6 +66,8 @@ public class DoubleCircleObstacle extends Obstacle{
         this.doubleCircleColor = Color.color(ois.readDouble(),ois.readDouble(),ois.readDouble(),ois.readDouble());
         setObstacleView(new DoubleCircleObstacleView(this,doubleCircleColor));
         setBindings();
+        getObstacleView().getTransition().jumpTo(Duration.millis(ois.readDouble()));
+        outer.getObstacleView().getTransition().jumpTo(Duration.millis(ois.readDouble()));
     }
 
     @Override
