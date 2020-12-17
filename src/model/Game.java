@@ -294,7 +294,15 @@ public class Game implements Serializable {
             if(o.isColliding(ball)){
                 setGAME_STATE(GameState.GAME_OVER);
                 gameLoop.stop();
+                for(Obstacle obs:obstacleList){
+                    obs.getObstacleView().getTransition().pause();
+                    if(obs.getClass().getName().equals("model.DoubleCircleObstacle"))
+                    {
+                        ((DoubleCircleObstacle)(o)).getOuter().getObstacleView().getTransition().pause();
+                    }
+                }
                 OnCollisionMenu onc = new OnCollisionMenu(this);
+                break;
             }
         }
         Iterator<Collectable> itr = collectableList.iterator();
@@ -338,8 +346,10 @@ public class Game implements Serializable {
     public void resumeGame()
     {
         for(int i=0;i<500000000;i++);
-        getGameLoop().start();
-        setGAME_STATE(GameState.GAME_RUNNING);
+        if(this.getGAME_STATE()!=GameState.GAME_NOTSTARTED) {
+            getGameLoop().start();
+            setGAME_STATE(GameState.GAME_RUNNING);
+        }
         Iterator<Obstacle> iter = obstacleList.listIterator();
         while(iter.hasNext())
         {

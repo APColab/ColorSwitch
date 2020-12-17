@@ -1,5 +1,6 @@
 package menupages;
 
+import model.DoubleCircleObstacle;
 import model.Game;
 import model.GameState;
 import model.Obstacle;
@@ -41,6 +42,13 @@ public class OnCollisionMenu {
             }
             game.setGAME_STATE(GameState.GAME_NOTSTARTED);
             game.getGameView().getGameStage().show();
+            for(Obstacle o:game.getObstacleList()){
+                o.getObstacleView().getTransition().play();
+                if(o.getClass().getName().equals("model.DoubleCircleObstacle"))
+                {
+                    ((DoubleCircleObstacle)(o)).getOuter().getObstacleView().getTransition().play();
+                }
+            }
         }
 
     }
