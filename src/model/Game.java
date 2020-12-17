@@ -367,6 +367,15 @@ public class Game implements Serializable {
     public void saveGame() {
         try
         {
+
+            File folder = new File("./src/savedGames");
+            ArrayList<File> saveGameList = new ArrayList<>(Arrays.asList(folder.listFiles()));
+            for(File saveGame:saveGameList){
+                if(saveGame.getName().equals(gameID.toString())){
+                    saveGame.delete();
+                }
+            }
+
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("./src/savedGames/"+gameID.toString()));
             objectOutputStream.writeObject(this);
             objectOutputStream.close();
