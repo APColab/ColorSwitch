@@ -135,25 +135,13 @@ public class Game implements Serializable {
                     }
                     ball.goUp();
                 }else if(keyEvent.getCode()==KeyCode.S){
-                    try {
-                        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./game.sav"));
-                        sav(oos);
-                        oos.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    saveGame();
                 }
             }
         });
     }
 
-    private void sav(ObjectOutputStream oos){
-        try {
-            oos.writeObject(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     private void initialiseObstacles()
     {
@@ -360,12 +348,13 @@ public class Game implements Serializable {
     public void saveGame() {
         try
         {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("/src/savedGames"));
-            writeObject(objectOutputStream);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("./src/savedGames/"+gameID.toString()));
+            objectOutputStream.writeObject(this);
+            objectOutputStream.close();
         }
         catch(Exception e)
         {
-            System.out.println("Write error");
+            e.printStackTrace();
         }
 
     }

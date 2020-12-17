@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class CustomObstacle extends Obstacle{
 
-    private ArrayList<Line> lines;
+    private transient ArrayList<Line> lines;
 
     public CustomObstacle(float pos_x, float pos_y,ArrayList<Line> lines){
         this.setPos_X(pos_x);
