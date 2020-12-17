@@ -19,6 +19,7 @@ public class OnCollisionMenu {
 
     public void restartGame()
     {
+        this.game.getGameView().getGameStage().close();
         this.game = new Game();
         oncv.getOnCollisionStage().hide();
         game.getGameView().getGameStage().show();
@@ -26,7 +27,9 @@ public class OnCollisionMenu {
 
     public void exitToMainMenu()
     {
-        System.out.println("Exit");
+        this.game.getGameView().getGameStage().close();
+        this.game = null;
+        MainMenu mainMenu = new MainMenu();
     }
 
     public Game getGame() {

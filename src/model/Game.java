@@ -218,7 +218,6 @@ public class Game{
             if(o.isColliding(ball)){
                 setGAME_STATE(GameState.GAME_OVER);
                 gameLoop.stop();
-                gameView.getGameStage().hide();
                 OnCollisionMenu onc = new OnCollisionMenu(this);
             }
         }
@@ -236,7 +235,8 @@ public class Game{
         if(getBall().getPos_Y()>=HEIGHT)
         {
             setGAME_STATE(GameState.GAME_OVER);
-            System.exit(0);
+            gameLoop.stop();
+            OnCollisionMenu onc = new OnCollisionMenu(this);
         }
     }
 
