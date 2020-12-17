@@ -3,6 +3,7 @@ package model;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import view.DoubleCircleObstacleView;
 import view.TriangleObstacleView;
 
@@ -47,6 +48,7 @@ public class TriangleObstacle extends Obstacle{
         ous.writeDouble(triangleColor.getGreen());
         ous.writeDouble(triangleColor.getBlue());
         ous.writeDouble(triangleColor.getOpacity());
+        ous.writeDouble(getObstacleView().getTransition().getCurrentTime().toMillis());
     }
 
     @Serial
@@ -58,6 +60,7 @@ public class TriangleObstacle extends Obstacle{
         this.triangleColor = Color.color(ois.readDouble(),ois.readDouble(),ois.readDouble(),ois.readDouble());
         setObstacleView(new TriangleObstacleView(this,triangleColor));
         setBindings();
+        getObstacleView().getTransition().jumpTo(Duration.millis(ois.readDouble()));
     }
 
 
