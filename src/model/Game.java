@@ -180,7 +180,7 @@ public class Game implements Serializable {
     private void addObstacles(int obstaclePaneIndex, int index,boolean flag)
     {
         Random rand = new Random();
-        int n = rand.nextInt(6);
+        int n = rand.nextInt(5+customObstacleLoader.getObstacleList().size());
         Obstacle o;
         switch (n) {
             case 0 -> {

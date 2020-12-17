@@ -45,13 +45,13 @@ public class CustomObstacleLoader {
         }
     }
 
-    public Obstacle getObstacle(float pos_x, float pos_y){
-        if(obstacleList.isEmpty()){
-            return new CircularObstacle(pos_x,pos_y);
-        }
+    public CustomObstacle getObstacle(float pos_x, float pos_y){
         Random rand = new Random();
         int n = rand.nextInt(obstacleList.size());
         return new CustomObstacle(pos_x,pos_y,obstacleList.get(n));
     }
 
+    public ArrayList<ArrayList<Line>> getObstacleList() {
+        return obstacleList;
+    }
 }
