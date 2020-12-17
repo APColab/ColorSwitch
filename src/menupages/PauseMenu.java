@@ -39,7 +39,6 @@ public class PauseMenu
     {
         //resume paused game
         game.resumeGame();
-        game.getGameView().getGamePane().requestFocus();
         return;
     }
 

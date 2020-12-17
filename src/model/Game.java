@@ -19,6 +19,7 @@ import menupages.PauseMenuView;
 import javafx.util.converter.NumberStringConverter;
 
 import view.GameView;
+import view.ObstacleView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -133,7 +134,7 @@ public class Game{
             }
             case 3 -> {
                 o = new CrossObstacle(0,0);
-                o.setPos_X(WIDTH/2 -10);
+                o.setPos_X(WIDTH/2 -15);
             }
             default -> {
                 o = new CircularObstacle(0,0);
@@ -251,7 +252,13 @@ public class Game{
         Iterator<Obstacle> iter = obstacleList.listIterator();
         while(iter.hasNext())
         {
-            (iter.next()).getObstacleView().getTransition().pause();
+            Obstacle o = iter.next();
+            o.getObstacleView().getTransition().pause();
+           // System.out.println(o.getClass().getName());
+            if(o.getClass().getName().equals("model.DoubleCircleObstacle"))
+            {
+                ((DoubleCircleObstacle)(o)).getOuter().getObstacleView().getTransition().pause();
+            }
         }
         setGAME_STATE(GameState.GAME_PAUSED);
     }
