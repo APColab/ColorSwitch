@@ -5,19 +5,22 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
+import javafx.util.Duration;
 import view.BallView;
+import view.CrossObstacleView;
 
+import java.io.*;
 import java.util.ArrayList;
 
 
-public class Ball extends Circle implements Collidable {
-    private FloatProperty pos_X;
-    private FloatProperty pos_Y;
+public class Ball extends Circle implements Collidable, Serializable {
+    private transient FloatProperty pos_X;
+    private transient FloatProperty pos_Y;
     private final float RADIUS = 12 ;
-    private BallView ballView;
-    private Color ballColor;
-    private FloatProperty speed;
-    private FloatProperty maxHeight;
+    private transient BallView ballView;
+    private transient Color ballColor;
+    private transient FloatProperty speed;
+    private transient FloatProperty maxHeight;
 
 
     public Ball(){
@@ -38,6 +41,33 @@ public class Ball extends Circle implements Collidable {
     private void setBindings() {
         pos_X.bindBidirectional(ballView.layoutXProperty());
         pos_Y.bindBidirectional(ballView.layoutYProperty());
+    }
+
+
+
+    @Serial
+    private void writeObject(ObjectOutputStream ous) throws IOException {
+        ous.defaultWriteObject();
+        ous.writeFloat(getPos_X());
+        ous.writeFloat(getPos_Y());
+        ous.writeFloat(getSpeed());
+        ous.writeFloat(getMaxHeight());
+        ous.writeDouble(ballColor.getRed());
+        ous.writeDouble(ballColor.getGreen());
+        ous.writeDouble(ballColor.getBlue());
+        ous.writeDouble(ballColor.getOpacity());
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream ois) throws ClassNotFoundException,IOException{
+        ois.defaultReadObject();
+        pos_X = new SimpleFloatProperty(ois.readFloat());
+        pos_Y = new SimpleFloatProperty(ois.readFloat());
+        speed = new SimpleFloatProperty(ois.readFloat());
+        maxHeight = new SimpleFloatProperty(ois.readFloat());
+        ballColor = Color.color(ois.readDouble(),ois.readDouble(),ois.readDouble(),ois.readDouble());
+        setBallColor(ballColor);
+        setBindings();
     }
 
 
