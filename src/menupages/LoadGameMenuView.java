@@ -177,6 +177,24 @@ public class LoadGameMenuView
                 //loadStage.hide();
             }
         });
+
+
+
+        GameButton goBackButton = new GameButton("MAIN MENU",idlePath,pressedPath,19);
+        goBackButton.setLayoutX(200);
+        goBackButton.setLayoutY(700);
+        loadPane.getChildren().add(goBackButton);
+
+        goBackButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                loadStage.close();
+                MainMenu mainMenu = new MainMenu();
+            }
+        });
+
+
+
     }
 
 
