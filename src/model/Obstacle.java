@@ -6,15 +6,16 @@ import javafx.scene.shape.Shape;
 import view.ObstacleView;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Obstacle implements Collidable {
-    private FloatProperty pos_X;
-    private FloatProperty pos_Y;
+public abstract class Obstacle implements Collidable, Serializable {
+    private transient FloatProperty pos_X;
+    private transient FloatProperty pos_Y;
     private final float height = 200;
     private final float width = 200;
     private final float stroke = 11.0f;
-    private ObstacleView obstacleView;
+    private transient ObstacleView obstacleView;
 
     public float getStroke() {
         return stroke;
