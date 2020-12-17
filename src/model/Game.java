@@ -138,6 +138,11 @@ public class Game implements Serializable {
                     ball.goUp();
                 }else if(keyEvent.getCode()==KeyCode.S){
                     saveGame();
+                }else if(keyEvent.getCode()==KeyCode.P){
+                    if(getGAME_STATE()== GameState.GAME_RUNNING || getGAME_STATE()== GameState.GAME_NOTSTARTED)
+                        pause();
+                    else
+                        getGameView().getGamePane().requestFocus();
                 }
             }
         });
@@ -298,7 +303,7 @@ public class Game implements Serializable {
                     obs.getObstacleView().getTransition().pause();
                     if(obs.getClass().getName().equals("model.DoubleCircleObstacle"))
                     {
-                        ((DoubleCircleObstacle)(o)).getOuter().getObstacleView().getTransition().pause();
+                        ((DoubleCircleObstacle)(obs)).getOuter().getObstacleView().getTransition().pause();
                     }
                 }
                 OnCollisionMenu onc = new OnCollisionMenu(this);

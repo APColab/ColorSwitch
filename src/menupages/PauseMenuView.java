@@ -87,12 +87,9 @@ public class PauseMenuView
         exitButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(pauseMenu.getGame().getGAME_STATE()== GameState.GAME_PAUSED)
-                {
-                   pauseStage.hide();
-                   pauseMenu.getGame().getGameView().getGameStage().hide();
-                   pauseMenu.exitToMainMenu();
-                }
+                pauseStage.hide();
+                pauseMenu.getGame().getGameView().getGameStage().hide();
+                pauseMenu.exitToMainMenu();
             }
         });
 
