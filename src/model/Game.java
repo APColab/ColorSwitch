@@ -99,6 +99,21 @@ public class Game implements Serializable {
     }
 
 
+
+    public void exitGame() throws IOException {
+        File folder = new File("./src/savedGames");
+        ArrayList<File> saveGameList = new ArrayList<>(Arrays.asList(folder.listFiles()));
+        for(File saveGame:saveGameList){
+            if(saveGame.getName().equals(gameID.toString())){
+                saveGame.delete();
+            }
+        }
+        collectedStars.setTotalStars(collectedStars.getTotalStars()+getScore());
+        collectedStars.saveStars();
+    }
+
+
+
     private void setBindings() {
         gameView.getScoreView().textProperty().bindBidirectional(score,new NumberStringConverter());
     }
