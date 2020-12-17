@@ -102,7 +102,7 @@ public class GameView {
             public void handle(MouseEvent event) {
                 if(type=='p')
                 {
-                    if(game.getGAME_STATE()== GameState.GAME_RUNNING)
+                    if(game.getGAME_STATE()== GameState.GAME_RUNNING || game.getGAME_STATE()== GameState.GAME_NOTSTARTED)
                         game.pause();
                     else
                         game.getGameView().getGamePane().requestFocus();

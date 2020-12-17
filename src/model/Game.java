@@ -346,8 +346,10 @@ public class Game implements Serializable {
     public void resumeGame()
     {
         for(int i=0;i<500000000;i++);
-        getGameLoop().start();
-        setGAME_STATE(GameState.GAME_RUNNING);
+        if(this.getGAME_STATE()!=GameState.GAME_NOTSTARTED) {
+            getGameLoop().start();
+            setGAME_STATE(GameState.GAME_RUNNING);
+        }
         Iterator<Obstacle> iter = obstacleList.listIterator();
         while(iter.hasNext())
         {

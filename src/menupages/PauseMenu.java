@@ -41,7 +41,6 @@ public class PauseMenu
     {
         game.resumeGame();
         game.getGameView().getGamePane().requestFocus();
-        return;
     }
 
     public void exitToMainMenu()

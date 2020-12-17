@@ -71,11 +71,9 @@ public class PauseMenuView
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("Resume");
-                if(pauseMenu.getGame().getGAME_STATE()== GameState.GAME_PAUSED)
-                {
-                    pauseStage.hide();
-                    pauseMenu.resumeGame();
-                }
+                pauseStage.hide();
+                pauseMenu.resumeGame();
+
             }
         });
 
