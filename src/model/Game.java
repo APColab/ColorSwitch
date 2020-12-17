@@ -45,6 +45,7 @@ public class Game{
         addEventHandlers();
         setBindings();
         initialiseObstacles();
+       // LoadGameMenuView lg = new LoadGameMenuView();
 
     }
 
