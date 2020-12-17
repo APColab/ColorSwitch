@@ -199,5 +199,4 @@ public class MainMenuView
         menuPane.setBackground(new Background(bg));
     }
 
-
 }

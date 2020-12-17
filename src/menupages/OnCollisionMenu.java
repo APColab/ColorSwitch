@@ -4,10 +4,13 @@ import model.Game;
 
 public class OnCollisionMenu {
     Game game;
+    private OnCollisionMenu onCollisionMenu;
+    private OnCollisionMenuView oncv;
 
     public OnCollisionMenu(Game game)
     {
         this.game = game;
+        oncv = new OnCollisionMenuView();
     }
 
     public void reviveGame()
@@ -22,7 +25,7 @@ public class OnCollisionMenu {
 
     public void exitToMainMenu()
     {
-
+        System.out.println("Exit");
     }
 
     public Game getGame() {
@@ -32,4 +35,10 @@ public class OnCollisionMenu {
     public void setGame(Game game) {
         this.game = game;
     }
+
+    public void setOnCollisionMenu(OnCollisionMenu onCollisionMenu) {
+        this.onCollisionMenu = onCollisionMenu;
+        oncv.setOnCollisionMenu(onCollisionMenu);
+    }
+
 }

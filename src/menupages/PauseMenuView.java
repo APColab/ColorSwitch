@@ -57,26 +57,6 @@ public class PauseMenuView
         pauseStage.show();
     }
 
-    public Stage getPauseStage() {
-        return pauseStage;
-    }
-
-    public AnchorPane getPausePane() {
-        return pausePane;
-    }
-
-    public PauseMenu getPauseMenu() {
-        return pauseMenu;
-    }
-
-    public void setPauseMenu(PauseMenu pauseMenu) {
-        this.pauseMenu = pauseMenu;
-    }
-
-    public ArrayList<GameButton> getPauseGameButtons() {
-        return pauseGameButtons;
-    }
-
 
     private void createButtons()
     {
@@ -109,9 +89,12 @@ public class PauseMenuView
         exitButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                 pauseStage.hide();
-                 pauseMenu.getGame().getGameView().getGameStage().hide();
-                 pauseMenu.exitToMainMenu();
+                if(pauseMenu.getGame().getGAME_STATE()== GameState.GAME_PAUSED)
+                {
+                   pauseStage.hide();
+                   pauseMenu.getGame().getGameView().getGameStage().hide();
+                   pauseMenu.exitToMainMenu();
+                }
             }
         });
 
@@ -141,4 +124,26 @@ public class PauseMenuView
         t.setLayoutY(110);
         pausePane.getChildren().add(t);
     }
+
+    public Stage getPauseStage() {
+        return pauseStage;
+    }
+
+    public AnchorPane getPausePane() {
+        return pausePane;
+    }
+
+    public PauseMenu getPauseMenu() {
+        return pauseMenu;
+    }
+
+    public void setPauseMenu(PauseMenu pauseMenu) {
+        this.pauseMenu = pauseMenu;
+    }
+
+    public ArrayList<GameButton> getPauseGameButtons() {
+        return pauseGameButtons;
+    }
+
+
 }

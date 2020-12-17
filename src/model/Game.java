@@ -12,9 +12,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-import menupages.MainMenu;
-import menupages.PauseMenu;
-import menupages.PauseMenuView;
+import menupages.*;
 
 import javafx.util.converter.NumberStringConverter;
 
@@ -47,6 +45,9 @@ public class Game{
         addEventHandlers();
         setBindings();
         initialiseObstacles();
+        OnCollisionMenu onc = new OnCollisionMenu(this);
+        onc.setOnCollisionMenu(onc);
+
     }
 
     private void setBindings() {
