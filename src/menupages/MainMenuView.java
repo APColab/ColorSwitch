@@ -91,7 +91,7 @@ public class MainMenuView
         startButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                    //getMainmenu().newGame();
+                   // getMainmenu().newGame(null);
                     GameChooseView gmv = new GameChooseView();
                     menuStage.hide();
                     menuPane.getChildren().clear();
@@ -109,7 +109,8 @@ public class MainMenuView
         loadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                getMainmenu().loadGame();
+                //getMainmenu().loadGame();
+                LoadGameMenuView lm = new LoadGameMenuView();
                 menuStage.hide();
                 menuPane.getChildren().clear();
             }

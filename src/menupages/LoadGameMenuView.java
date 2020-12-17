@@ -1,11 +1,14 @@
 package menupages;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -24,6 +27,7 @@ import java.util.Iterator;
 public class LoadGameMenuView
 {
     private final static String BACKGROUND_IMAGE = "/resources/bg1.jpg";
+    private final String BUTTON_PATH = "-fx-background-color: transparent; -fx-background-image: url('/resources/";
     private SavedGames savedGames;
     private static final int HEIGHT = 800;
     private static final int WIDTH = 600;
@@ -33,6 +37,8 @@ public class LoadGameMenuView
     private Stage loadStage;
     private Scene loadScene;
     ToggleGroup tg = new ToggleGroup();
+
+    private String SelectedButton;
 
     ArrayList<String> gamesList;
 
@@ -60,6 +66,7 @@ public class LoadGameMenuView
         loadStage.setResizable(false);
         addBackground();
         createLabel();
+        createButtons();
         initalizeSubPane();
         loadStage.show();
     }
@@ -68,7 +75,7 @@ public class LoadGameMenuView
     {
         loadSubPane.setPrefSize(500, 400);
         loadSubPane.setLayoutX(50);
-        loadSubPane.setLayoutY(250);
+        loadSubPane.setLayoutY(200);
         innerPane.setPrefSize(500, (gamesList.size())*50+20);
         loadSubPane.setFitToWidth(true);
         addGames();
@@ -113,6 +120,21 @@ public class LoadGameMenuView
         r.setLayoutX(50);
         r.setLayoutY(30+50*count);
         innerPane.getChildren().add(r);
+
+        r.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue)
+            {
+                RadioButton rb = (RadioButton)tg.getSelectedToggle();
+
+                if (rb != null && rb.isSelected()) {
+                    SelectedButton = rb.getText();
+                    System.out.println(SelectedButton);
+                }
+
+            }
+        }
+        );
     }
 
     public void createLabel()
@@ -132,5 +154,25 @@ public class LoadGameMenuView
         t.setLayoutY(100);
         loadPane.getChildren().add(t);
     }
+
+    private void createButtons() {
+        String idlePath = BUTTON_PATH + "yellow_button1.png');";
+        System.out.println(idlePath);
+        String pressedPath = BUTTON_PATH + "yellow_button2.png');";
+        GameButton resumeButton = new GameButton("PLAY GAME", idlePath, pressedPath, 19);
+        resumeButton.setLayoutX(200);
+        resumeButton.setLayoutY(650);
+        loadPane.getChildren().add(resumeButton);
+        resumeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                //check null condition
+                System.out.println("SELCETD "+SelectedButton);
+                //loadStage.hide();
+            }
+        });
+    }
+
+
 
 }

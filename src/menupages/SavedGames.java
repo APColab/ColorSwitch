@@ -36,7 +36,7 @@ public class SavedGames
             }
 
         }
-        LoadGameMenuView load = new LoadGameMenuView(games);
+
     }
 
     public static void addSavedGames()
