@@ -32,6 +32,7 @@ public class Game implements Serializable {
     private final float WIDTH = 600;
     private transient GameLoop gameLoop;
     private transient LongProperty score;
+    private transient CustomObstacleLoader customObstacleLoader;
     private transient GameState GAME_STATE;
     private List<Obstacle> obstacleList;
     private List<Collectable> collectableList;
@@ -46,6 +47,7 @@ public class Game implements Serializable {
         score = new SimpleLongProperty(0);
         GAME_STATE = GameState.GAME_NOTSTARTED;
         collectedStars = new CollectedStars();
+        customObstacleLoader = new CustomObstacleLoader();
         this.numberOfRevivals = 0;
         gameID = UUID.randomUUID();
         initializeSprites();
@@ -190,7 +192,7 @@ public class Game implements Serializable {
     private void addObstacles(int obstaclePaneIndex, int index,boolean flag)
     {
         Random rand = new Random();
-        int n = rand.nextInt(5);
+        int n = rand.nextInt(6);
         Obstacle o;
         switch (n) {
             case 0 -> {
@@ -209,9 +211,13 @@ public class Game implements Serializable {
                 o = new CrossObstacle(0,0);
                 o.setPos_X(WIDTH/2 -15);
             }
-            default -> {
+            case 4 -> {
                 o = new CircularObstacle(0,0);
                 o.setPos_X(WIDTH / 2 - ((CircularObstacle) o).getRadius());
+            }
+            default -> {
+                o = customObstacleLoader.getObstacle(0,0);
+                o.setPos_X(WIDTH/2 - o.getWidth()/2);
             }
         }
         if (!flag) {
