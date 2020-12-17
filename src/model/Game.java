@@ -89,7 +89,6 @@ public class Game implements Serializable {
         gameView = new GameView(this);
         addEventHandlers();
         setBindings();
-        ball.setPos_Y(HEIGHT-3*ball.getRADIUS());
         HashMap<Obstacle,Integer> hashMap = (HashMap<Obstacle, Integer>) ois.readObject();
         for(Obstacle o:obstacleList){
             gameView.getObstaclePane()[hashMap.get(o)].getChildren().add(o.getObstacleView());
@@ -162,8 +161,6 @@ public class Game implements Serializable {
         addObstacles(1,2,false);
         addObstacles(1,3,false);
     }
-
-
 
     private void addCollectables(Obstacle o,int index){
         Star s = new Star(this,o);

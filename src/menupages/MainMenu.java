@@ -1,6 +1,7 @@
 package menupages;
 
 import model.Game;
+import menupages.SavedGames;
 
 public class MainMenu
 {
@@ -9,7 +10,7 @@ public class MainMenu
         MainMenuView mmv = new MainMenuView(this);
     }
 
-    public void newGame()
+    public static void newGame()
     {
         System.out.println("New Game Pressed");
         Game gm = new Game();
@@ -17,13 +18,14 @@ public class MainMenu
         return;
     }
 
-    public void loadGame()
+    public static void loadGame()
     {
         System.out.println("Load Game Pressed");
+        SavedGames.loadSavedGames();
         return;
     }
 
-    public void exit()
+    public static void exit()
     {
         System.out.println("Exit Game Pressed");
         System.exit(0);

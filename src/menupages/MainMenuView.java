@@ -106,7 +106,8 @@ public class MainMenuView
             @Override
             public void handle(MouseEvent event) {
                 getMainmenu().loadGame();
-                //menuStage.hide();
+                menuStage.hide();
+                menuPane.getChildren().clear();
             }
         });
     }

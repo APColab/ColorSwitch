@@ -10,9 +10,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Game;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -28,16 +31,11 @@ public class LoadGameMenuView
     private Stage loadStage;
     private Scene loadScene;
 
-    ArrayList<String> arstr;
+    ArrayList<File> gamesList;
 
-    public LoadGameMenuView()
+    public LoadGameMenuView(ArrayList<File> games)
     {
-        arstr = new ArrayList<>();
-        arstr.add(("Game1"));
-        arstr.add("Game2");
-        arstr.add("Game3");
-        arstr.add("Game4");
-
+        gamesList = games;
         loadPane = new AnchorPane();
         innerPane = new AnchorPane();
         loadSubPane = new ScrollPane();
@@ -56,7 +54,7 @@ public class LoadGameMenuView
         loadSubPane.setPrefSize(500, 400);
         loadSubPane.setLayoutX(50);
         loadSubPane.setLayoutY(250);
-        innerPane.setPrefSize(500, (arstr.size()+2)*100);
+        innerPane.setPrefSize(500, (gamesList.size()+2)*100);
         loadSubPane.setFitToWidth(true);
         addGames();
         loadSubPane.setContent(innerPane);
@@ -73,12 +71,12 @@ public class LoadGameMenuView
 
     public void addGames()
     {
-        int count=0;
-        Iterator<String> iter = arstr.listIterator();
+       /** int count=0;
+        Iterator<File> iter = gamesList.listIterator();
         while(iter.hasNext())
         {
             toText(iter.next(), count);
-        }
+        }*/
     }
 
     public void toText(String s, int count)
