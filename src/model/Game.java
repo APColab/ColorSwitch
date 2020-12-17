@@ -28,8 +28,8 @@ import java.util.*;
 public class Game implements Serializable {
     private Ball ball;
     private transient GameView gameView;
-    private final float HEIGHT = 800;
-    private final float WIDTH = 600;
+    private transient final float HEIGHT = 800;
+    private transient final float WIDTH = 600;
     private transient GameLoop gameLoop;
     private transient LongProperty score;
     private transient CustomObstacleLoader customObstacleLoader;
@@ -367,7 +367,6 @@ public class Game implements Serializable {
     public void saveGame() {
         try
         {
-
             File folder = new File("./src/savedGames");
             ArrayList<File> saveGameList = new ArrayList<>(Arrays.asList(folder.listFiles()));
             for(File saveGame:saveGameList){

@@ -55,6 +55,7 @@ public class LoadGameMenuView
         for(Game g:games){
             gamesList.add(g.getGameID().toString());
         }
+        System.out.println(gamesList.size());
         loadPane = new AnchorPane();
         innerPane = new AnchorPane();
         loadSubPane = new ScrollPane();
@@ -74,9 +75,13 @@ public class LoadGameMenuView
         loadSubPane.setPrefSize(500, 400);
         loadSubPane.setLayoutX(50);
         loadSubPane.setLayoutY(200);
-        innerPane.setPrefSize(500, (gamesList.size())*50+20);
+        if(gamesList!=null)
+            innerPane.setPrefSize(500, (gamesList.size())*50+500);
+        else
+            innerPane.setPrefSize(500, 200);
         loadSubPane.setFitToWidth(true);
-        addGames();
+        if(gamesList!=null)
+            addGames();
         loadSubPane.setContent(innerPane);
         loadPane.getChildren().add(loadSubPane);
     }
@@ -124,7 +129,6 @@ public class LoadGameMenuView
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue)
             {
                 RadioButton rb = (RadioButton)tg.getSelectedToggle();
-
                 if (rb != null && rb.isSelected()) {
                     SelectedButton = rb.getText();
                     System.out.println(SelectedButton);
@@ -164,7 +168,8 @@ public class LoadGameMenuView
         resumeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(getSelectedButton() != null){
+                if(getSelectedButton() != null)
+                {
                     for(Game g:games){
                         if(g.getGameID().toString().equals(getSelectedButton())){
                             loadStage.hide();
@@ -196,7 +201,6 @@ public class LoadGameMenuView
 
 
     }
-
 
 
 }
