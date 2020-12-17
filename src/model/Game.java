@@ -238,6 +238,7 @@ public class Game{
 
         if(getBall().getPos_Y()>=HEIGHT)
         {
+            setGAME_STATE(GameState.GAME_OVER);
             System.exit(0);
         }
     }
