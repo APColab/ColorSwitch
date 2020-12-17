@@ -17,7 +17,7 @@ import model.*;
 public class GameView {
     private Game game;
 
-    private final String GAME_BACKGROUND_URL = "resources/gamebg.png";
+    private final String GAME_BACKGROUND_URL;
     private BackgroundImage gameBackground;
 
     private Pane gamePane;
@@ -30,7 +30,9 @@ public class GameView {
     private final float HEIGHT = 800;
     private final float WIDTH = 600;
 
-    public GameView(Game game){
+    public GameView(Game game, String bg){
+        GAME_BACKGROUND_URL = bg;
+        System.out.println(bg);
         this.game = game;
         initializeStage();
     }
@@ -50,7 +52,7 @@ public class GameView {
         this.gameStage = new Stage();
         this.obstaclePane = new AnchorPane[2];
 
-        gameBackground = new BackgroundImage(new Image(GAME_BACKGROUND_URL),
+        gameBackground = new BackgroundImage(new  Image(GAME_BACKGROUND_URL),
                 BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
 
         gamePane.setBackground(new Background(gameBackground));

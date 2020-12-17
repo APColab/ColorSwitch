@@ -88,7 +88,8 @@ public class MainMenuView
         startButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                    getMainmenu().newGame();
+                    //getMainmenu().newGame();
+                    GameChooseView gmv = new GameChooseView();
                     menuStage.hide();
                     menuPane.getChildren().clear();
             }

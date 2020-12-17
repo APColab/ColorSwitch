@@ -10,10 +10,10 @@ public class MainMenu
         MainMenuView mmv = new MainMenuView(this);
     }
 
-    public static void newGame()
+    public static void newGame(String bg)
     {
         System.out.println("New Game Pressed");
-        Game gm = new Game();
+        Game gm = new Game(bg);
         gm.getGameView().getGameStage().show();
         return;
     }

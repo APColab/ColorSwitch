@@ -53,7 +53,7 @@ public class OnCollisionMenu {
             e.printStackTrace();
         }
         this.game.getGameView().getGameStage().close();
-        this.game = new Game();
+        this.game = new Game(game.getBg());
         oncv.getOnCollisionStage().hide();
         game.getGameView().getGameStage().show();
     }

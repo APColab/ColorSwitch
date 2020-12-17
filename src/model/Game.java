@@ -38,8 +38,9 @@ public class Game implements Serializable {
     private transient CollectedStars collectedStars;
     private int numberOfRevivals;
     private UUID gameID;
+    private String bg;
 
-    public Game(){
+    public Game(String bg){
         gameLoop = new GameLoop();
         obstacleList = new ArrayList<>();
         collectableList = new ArrayList<>();
@@ -47,6 +48,7 @@ public class Game implements Serializable {
         GAME_STATE = GameState.GAME_NOTSTARTED;
         collectedStars = new CollectedStars();
         this.numberOfRevivals = 0;
+        this.bg = bg;
         gameID = UUID.randomUUID();
         initializeSprites();
         addEventHandlers();
@@ -85,7 +87,7 @@ public class Game implements Serializable {
         score = new SimpleLongProperty(ois.readLong());
         GAME_STATE = GameState.GAME_NOTSTARTED;
         collectedStars = new CollectedStars();
-        gameView = new GameView(this);
+        gameView = new GameView(this, bg);
         addEventHandlers();
         setBindings();
         HashMap<Obstacle,Integer> hashMap = (HashMap<Obstacle, Integer>) ois.readObject();
@@ -290,7 +292,7 @@ public class Game implements Serializable {
         this.ball = new Ball();
         ball.setPos_X(WIDTH/2);
         ball.setPos_Y(HEIGHT-3*ball.getRADIUS());
-        gameView = new GameView(this);
+        gameView = new GameView(this, bg);
     }
 
     private void checkCollisions(){
@@ -428,4 +430,7 @@ public class Game implements Serializable {
         return WIDTH;
     }
 
+    public String getBg() {
+        return bg;
+    }
 }
