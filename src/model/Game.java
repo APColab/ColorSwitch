@@ -36,6 +36,7 @@ public class Game implements Serializable {
     private List<Obstacle> obstacleList;
     private List<Collectable> collectableList;
     private transient CollectedStars collectedStars;
+    private int numberOfRevivals;
     private UUID gameID;
 
     public Game(){
@@ -45,6 +46,7 @@ public class Game implements Serializable {
         score = new SimpleLongProperty(0);
         GAME_STATE = GameState.GAME_NOTSTARTED;
         collectedStars = new CollectedStars();
+        this.numberOfRevivals = 0;
         gameID = UUID.randomUUID();
         initializeSprites();
         addEventHandlers();
@@ -390,5 +392,21 @@ public class Game implements Serializable {
 
     public GameLoop getGameLoop() {
         return gameLoop;
+    }
+
+    public CollectedStars getCollectedStars() {
+        return collectedStars;
+    }
+
+    public UUID getGameID() {
+        return gameID;
+    }
+
+    public int getNumberOfRevivals() {
+        return numberOfRevivals;
+    }
+
+    public void setNumberOfRevivals(int numberOfRevivals) {
+        this.numberOfRevivals = numberOfRevivals;
     }
 }

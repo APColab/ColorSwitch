@@ -60,7 +60,6 @@ public class OnCollisionMenuView
                 System.out.println("Resume");
                 if(onCollisionMenu.getGame().getGAME_STATE()== GameState.GAME_OVER)
                 {
-                    onCollisionStage.hide();
                     onCollisionMenu.reviveGame();
                 }
             }
