@@ -211,6 +211,7 @@ public class Game{
             ball.goDown();
         }
     }
+
     private void initializeSprites(){
         this.ball = new Ball();
         ball.setPos_X(WIDTH/2);
@@ -233,6 +234,12 @@ public class Game{
                 itr.remove();
                 c.handleCollision();
             }
+        }
+
+        if(getBall().getPos_Y()>=HEIGHT)
+        {
+            setGAME_STATE(GameState.GAME_OVER);
+            System.exit(0);
         }
     }
 

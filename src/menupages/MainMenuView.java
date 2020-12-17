@@ -26,13 +26,13 @@ import java.util.ArrayList;
 
 public class MainMenuView
 {
-    private final static int MENU_BUTTON_START_X = 150;
-    private final static int MENU_BUTTON_START_Y = 150;
+    private final static int MENU_BUTTON_START_X = 200;
+    private final static int MENU_BUTTON_START_Y = 250;
     private final String BUTTON_PATH = "-fx-background-color: transparent; -fx-background-image: url('/resources/";     //add button name ending with ');
     private ArrayList<GameButton> mainMenuButtons;
 
-    private static final int HEIGHT = 600;
-    private static final int WIDTH = 500;
+    private static final int HEIGHT = 800;
+    private static final int WIDTH = 600;
     private AnchorPane menuPane;
     private Scene menuScene;
     private Stage menuStage;
@@ -147,8 +147,8 @@ public class MainMenuView
         img.setFitHeight(80);
         img.setFitWidth(80);
         img.setPreserveRatio(true);
-        img.setLayoutY(140);
-        img.setLayoutX(230);
+        img.setLayoutY(220);
+        img.setLayoutX(270);
         translateTransition.setNode(img);
         translateTransition.setByY(10);
         translateTransition.setCycleCount(Animation.INDEFINITE);
@@ -172,14 +172,29 @@ public class MainMenuView
             t.setFont(Font.font("Comic Sans", 30));
         }
         t.setFill(Color.WHITE);
-        t.setLayoutX(110);
-        t.setLayoutY(100);
+        t.setLayoutX(150);
+        t.setLayoutY(150);
+
+        Text sec = new Text("Reprise");
+        try
+        {
+            sec.setFont(Font.loadFont(new FileInputStream("src/resources/Winston_Andrews.otf"), 25));
+        }
+        catch (FileNotFoundException e)
+        {
+            sec.setFont(Font.font("Arial", 30));
+        }
+        sec.setFill(Color.WHITE);
+        sec.setLayoutX(360);
+        sec.setLayoutY(190);
+
         menuPane.getChildren().add(t);
+        menuPane.getChildren().add(sec);
     }
 
     public void createBackground()
     {
-        Image bgImage = new Image("/resources/bg1.jpg", true);
+        Image bgImage = new Image("/resources/bg1.jpg", 800, 1000, false, true);
         BackgroundImage bg = new BackgroundImage(bgImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
         menuPane.setBackground(new Background(bg));
     }
