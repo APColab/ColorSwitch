@@ -41,22 +41,20 @@ public class LoadGameMenuView
     private String SelectedButton;
 
     ArrayList<String> gamesList;
+    ArrayList<Game> games;
 
-    public LoadGameMenuView()
+
+    public String getSelectedButton() {
+        return SelectedButton;
+    }
+
+    public LoadGameMenuView(ArrayList<Game> games)
     {
+        this.games = games;
         gamesList = new ArrayList<>();
-        gamesList.add("str1");
-        gamesList.add("str2");
-        gamesList.add("str3");
-        gamesList.add("str1");
-        gamesList.add("str2");
-        gamesList.add("str3");
-        gamesList.add("str1");
-        gamesList.add("str2");
-        gamesList.add("str3");
-        gamesList.add("str1");
-        gamesList.add("str2");
-        gamesList.add("str3");
+        for(Game g:games){
+            gamesList.add(g.getGameID().toString());
+        }
         loadPane = new AnchorPane();
         innerPane = new AnchorPane();
         loadSubPane = new ScrollPane();
@@ -166,7 +164,15 @@ public class LoadGameMenuView
         resumeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                //check null condition
+                if(getSelectedButton() != null){
+                    for(Game g:games){
+                        if(g.getGameID().toString().equals(getSelectedButton())){
+                            loadStage.hide();
+                            g.getGameView().getGameStage().show();
+                            break;
+                        }
+                    }
+                }
                 System.out.println("SELCETD "+SelectedButton);
                 //loadStage.hide();
             }

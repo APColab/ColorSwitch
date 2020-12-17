@@ -39,7 +39,7 @@ public class Game implements Serializable {
     private transient CollectedStars collectedStars;
     private int numberOfRevivals;
     private UUID gameID;
-    private String bg;
+    private transient String bg;
 
     public Game(String bg){
         gameLoop = new GameLoop();
@@ -61,6 +61,7 @@ public class Game implements Serializable {
     @Serial
     private void writeObject(ObjectOutputStream ous) throws IOException {
         ous.defaultWriteObject();
+        ous.writeUTF(bg);
         ous.writeLong(score.getValue());
         HashMap<Obstacle,Integer> hashMap = new HashMap<>();
         HashMap<Collectable,Integer> hashMapC = new HashMap<>();
@@ -85,6 +86,7 @@ public class Game implements Serializable {
     @Serial
     private void readObject(ObjectInputStream ois) throws ClassNotFoundException,IOException{
         ois.defaultReadObject();
+        bg = ois.readUTF();
         gameLoop = new GameLoop();
         score = new SimpleLongProperty(ois.readLong());
         GAME_STATE = GameState.GAME_NOTSTARTED;
