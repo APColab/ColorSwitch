@@ -6,12 +6,16 @@ import javafx.scene.shape.Shape;
 import view.ColorSwitchView;
 import view.StarView;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serial;
 import java.util.ArrayList;
 
 public class ColorSwitch extends Collectable{
 
-    private ColorSwitchView colorSwitchView;
-    private Color colorSwitchColor;
+    private transient ColorSwitchView colorSwitchView;
+    private transient Color colorSwitchColor;
 
     private final String IMAGE_PATH = "resources/colorswitch.png";
 
@@ -49,6 +53,29 @@ public class ColorSwitch extends Collectable{
     public String getIMAGE_PATH() {
         return IMAGE_PATH;
     }
+
+
+    @Serial
+    private void writeObject(ObjectOutputStream ous) throws IOException {
+        ous.defaultWriteObject();
+        ous.writeFloat(getPos_X());
+        ous.writeFloat(getPos_Y());
+        ous.writeDouble(colorSwitchColor.getRed());
+        ous.writeDouble(colorSwitchColor.getGreen());
+        ous.writeDouble(colorSwitchColor.getBlue());
+        ous.writeDouble(colorSwitchColor.getOpacity());
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream ois) throws ClassNotFoundException,IOException{
+        ois.defaultReadObject();
+        this.setPos_X(ois.readFloat());
+        this.setPos_Y(ois.readFloat());
+        colorSwitchColor = Color.color(ois.readDouble(),ois.readDouble(),ois.readDouble(),ois.readDouble());
+        colorSwitchView = new ColorSwitchView(this);
+        setbindings();
+    }
+
 
     @Override
     public void setbindings() {
