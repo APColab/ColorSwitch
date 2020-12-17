@@ -9,7 +9,7 @@ import view.CircularObstacleView;
 import java.util.ArrayList;
 
 public class CircularObstacle extends Obstacle{
-    private FloatProperty radius;
+    private transient FloatProperty radius;
 
     public CircularObstacle(float pos_x, float pos_y){
         this.setPos_X(pos_x);
