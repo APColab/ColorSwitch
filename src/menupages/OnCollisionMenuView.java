@@ -28,7 +28,7 @@ public class OnCollisionMenuView
     private Stage onCollisionStage;
     private Scene onCollisionScene;
 
-    public OnCollisionMenuView()
+    public OnCollisionMenuView(OnCollisionMenu onCollisionMenu)
     {
         onCollisionPane = new AnchorPane();
         onCollisionScene = new Scene(onCollisionPane, WIDTH, HEIGHT);
@@ -38,6 +38,7 @@ public class OnCollisionMenuView
         onCollisionStage.initStyle(StageStyle.UNDECORATED);
         onCollisionStage.initModality(Modality.APPLICATION_MODAL);
         onCollisionStage.centerOnScreen();
+        this.onCollisionMenu = onCollisionMenu;
         createButtons();
         createLabels();
         addBackground();

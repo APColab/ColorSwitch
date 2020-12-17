@@ -45,8 +45,6 @@ public class Game{
         addEventHandlers();
         setBindings();
         initialiseObstacles();
-        OnCollisionMenu onc = new OnCollisionMenu(this);
-        onc.setOnCollisionMenu(onc);
 
     }
 
@@ -68,12 +66,6 @@ public class Game{
                         gameLoop.start();
                     }
                     ball.goUp();
-                }else if(keyEvent.getCode()== KeyCode.P && GAME_STATE==GameState.GAME_RUNNING){
-                    GAME_STATE = GameState.GAME_PAUSED;
-                   // pause();
-                }else if(keyEvent.getCode()== KeyCode.R && GAME_STATE==GameState.GAME_PAUSED){
-                    GAME_STATE = GameState.GAME_RUNNING;
-                    gameLoop.start();
                 }
             }
         });
@@ -224,7 +216,10 @@ public class Game{
     private void checkCollisions(){
         for(Obstacle o:obstacleList){
             if(o.isColliding(ball)){
-                o.handleCollision();
+                setGAME_STATE(GameState.GAME_OVER);
+                gameLoop.stop();
+                gameView.getGameStage().hide();
+                OnCollisionMenu onc = new OnCollisionMenu(this);
             }
         }
         Iterator<Collectable> itr = collectableList.iterator();
@@ -246,8 +241,8 @@ public class Game{
     }
 
 
-    public void pause(Game game) {
-        PauseMenu p = new PauseMenu(game);
+    public void pause() {
+        PauseMenu p = new PauseMenu(this);
         p.setMenu(p);
         gameLoop.stop();
         Iterator<Obstacle> iter = obstacleList.listIterator();
@@ -255,7 +250,6 @@ public class Game{
         {
             Obstacle o = iter.next();
             o.getObstacleView().getTransition().pause();
-           // System.out.println(o.getClass().getName());
             if(o.getClass().getName().equals("model.DoubleCircleObstacle"))
             {
                 ((DoubleCircleObstacle)(o)).getOuter().getObstacleView().getTransition().pause();
