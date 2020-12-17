@@ -32,6 +32,7 @@ public class Game implements Serializable {
     private final float WIDTH = 600;
     private transient GameLoop gameLoop;
     private transient LongProperty score;
+    private transient CustomObstacleLoader customObstacleLoader;
     private transient GameState GAME_STATE;
     private List<Obstacle> obstacleList;
     private List<Collectable> collectableList;
@@ -47,6 +48,7 @@ public class Game implements Serializable {
         score = new SimpleLongProperty(0);
         GAME_STATE = GameState.GAME_NOTSTARTED;
         collectedStars = new CollectedStars();
+        customObstacleLoader = new CustomObstacleLoader();
         this.numberOfRevivals = 0;
         this.bg = bg;
         gameID = UUID.randomUUID();
@@ -135,25 +137,13 @@ public class Game implements Serializable {
                     }
                     ball.goUp();
                 }else if(keyEvent.getCode()==KeyCode.S){
-                    try {
-                        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./game.sav"));
-                        sav(oos);
-                        oos.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    saveGame();
                 }
             }
         });
     }
 
-    private void sav(ObjectOutputStream oos){
-        try {
-            oos.writeObject(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     private void initialiseObstacles()
     {
@@ -192,7 +182,7 @@ public class Game implements Serializable {
     private void addObstacles(int obstaclePaneIndex, int index,boolean flag)
     {
         Random rand = new Random();
-        int n = rand.nextInt(5);
+        int n = rand.nextInt(5+customObstacleLoader.getObstacleList().size());
         Obstacle o;
         switch (n) {
             case 0 -> {
@@ -211,9 +201,13 @@ public class Game implements Serializable {
                 o = new CrossObstacle(0,0);
                 o.setPos_X(WIDTH/2 -15);
             }
-            default -> {
+            case 4 -> {
                 o = new CircularObstacle(0,0);
                 o.setPos_X(WIDTH / 2 - ((CircularObstacle) o).getRadius());
+            }
+            default -> {
+                o = customObstacleLoader.getObstacle(0,0);
+                o.setPos_X(WIDTH/2 - o.getWidth()/2);
             }
         }
         if (!flag) {
@@ -356,12 +350,13 @@ public class Game implements Serializable {
     public void saveGame() {
         try
         {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("/src/savedGames"));
-            writeObject(objectOutputStream);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("./src/savedGames/"+gameID.toString()));
+            objectOutputStream.writeObject(this);
+            objectOutputStream.close();
         }
         catch(Exception e)
         {
-            System.out.println("Write error");
+            e.printStackTrace();
         }
 
     }
